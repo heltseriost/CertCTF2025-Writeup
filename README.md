@@ -13,7 +13,7 @@ Genom att titta på "IPv4 statistics" ser vi att ip-adresser på subnätet "192.
 
 <img width="1501" alt="SCR-20250322-noff" src="https://github.com/user-attachments/assets/ca3684ac-77c8-464d-8f36-8bbdf3ca8941" />
 
-Tittar vi i trafiken ser vi att det sker massa trafik udda trafik från "192.168.177.141" bland annat massa arp-request, misslyckade tcp-anslutningar och sen en uppkoppling mot 192.168.177.155 på port 4444. Port 4444 är en klassisk port för lyssnarport "Metasploit framework"
+Tittar vi i trafiken ser vi att det sker massa trafik udda trafik från "192.168.177.141" bland annat massa arp-request, misslyckade tcp-anslutningar och sen en uppkoppling mot 192.168.177.155 på port 4444. Port 4444 är en klassisk "lyssnarport" "Metasploit framework" och Meterpreter.
 
 Vi kan då räkna ut ganska snabbt att ip-adressen som angriparen använde sig av initialt var "192.168.177.141"
 
@@ -25,11 +25,11 @@ Vi kan då räkna ut ganska snabbt att ip-adressen som angriparen använde sig a
 
 *Kategori: Adresser*,  *Poäng: 100*
 
-Ftp brukar använda port 21. Filtrerar vi på lyckade anslutningar på port 21 ser vi en adress: "192.168.177.155" vilket innebär att den porten är öppen på den ip-adressen.
+Vi vet ju från "scenario.txt" att filservern är drabbad, i och med anslutningen från 192.168.177.141 till 192.168.177.155 kan vi ganska snabbt lista ut att det är filservern.
+
+Dessutom använder ftp port 21. Filtrerar vi på lyckade anslutningar på port 21 ser vi endast en adress: "192.168.177.155" vilket innebär att den porten bara är öppen på den ip-adressen. Ännu en indikation på att det är filservern.
 
 <img width="1384" alt="SCR-20250322-ntzk" src="https://github.com/user-attachments/assets/1089ea19-ebfc-4181-a086-b7a28f5f86da" />
-
-Vi vet ju från "scenario.txt" att filservern är drabbad, samt i och med anslutningen från 192.168.177.141 till 192.168.177.155 kan vi ganska snabbt lista ut att det är filservern.
 
 `Svar: 192.168.177.155`.
 
@@ -39,14 +39,13 @@ Vi vet ju från "scenario.txt" att filservern är drabbad, samt i och med anslut
 
 *Kategori: Adresser*,  *Poäng: 100*
 
-Domänkontrollanten hanterar Active Directorys inbyggda biljettsystem Kerberos. Filtrerar vi på detta kan vi luska ut att det troligtvis rör sig om adressen 192.168.177.129.
+Domänkontrollanten hanterar Windows Active Directorys biljettsystem Kerberos. Filtrerar vi på detta kan vi luska ut att det troligtvis rör sig om adressen 192.168.177.129.
 
 <img width="1389" alt="SCR-20250322-nwdy" src="https://github.com/user-attachments/assets/66707ce8-e958-4be9-91e5-5ce1bf4acdaf" />
 
 filtrerar vi på adressen kan vi dessutom bekräfta detta ännu mer med namnet "DC-01 GENTLEDENT"
 
 <img width="1384" alt="SCR-20250322-nwjf" src="https://github.com/user-attachments/assets/f4e68672-52e0-49f7-999b-43eebc9a3016" />
-
 
 `Svar: 192.168.177.129`.
 
@@ -60,7 +59,7 @@ Vi vet att angriparen är 192.168.177.141. filtrerar vi på dhcp och 192.168.177
 
 <img width="1389" alt="SCR-20250322-nzhi" src="https://github.com/user-attachments/assets/1704e5c3-a8c9-4e35-aa37-9112e442c17e" />
 
-Klickar vi på request-paketet kan vi se host name för 192.168.177.141:
+Klickar vi på request-paketet kan vi se hostname  för 192.168.177.141:
 
 <img width="970" alt="SCR-20250322-nzls" src="https://github.com/user-attachments/assets/fa294948-b65d-404b-a80e-345ca57329e9" />
 
@@ -76,14 +75,13 @@ Har man wireshark inställt på svensk tid (dvs. UTC) behöver man inte fundera 
 
 <img width="1326" alt="SCR-20250322-obiy" src="https://github.com/user-attachments/assets/1aef3bc4-071f-4448-9401-5449a53a039f" />
 
-
 `Svar: 09:42:01`.
 
 ### ***Initial teknik***
 
 *Kategori: MITRE ATT&CK*,  *Poäng: 100*
 
-Vi ser att det första gör angriparen (192.168.177.141) gör på nätverket är att köra massa arp-request för att få en bild av vilka uppkopplade enheter som finns på INTERNT på nätverket. En teknik som kallas "Remote System Discovery" ur taktiken Discovery. INTE att förväxla med tekniken "active scanning" som är en del av taktiken Reconnaiscance vilket det inte rör sig om här då vi är inne internt på nätverket.
+Vi ser att det första gör angriparen (192.168.177.141) gör på nätverket är att köra massa arp-request. Udda trafik som troligtvis är för att få en bild av vilka uppkopplade enheter som finns INTERNT på nätverket. En teknik som kallas "Remote System Discovery" ur taktiken Discovery. INTE att förväxla med tekniken "active scanning" som är en del av taktiken Reconnaiscance vilket det inte rör sig om här då vi är inne internt på nätverket.
 
 <img width="1390" alt="SCR-20250322-odlu" src="https://github.com/user-attachments/assets/f1cf173c-4127-4647-a5cc-4d104f729f15" />
 
@@ -95,4 +93,97 @@ Sidan för MITRE ATT&CK-tekniken:
 
 ---
 
+### ***Utökad teknik***
 
+*Kategori: MITRE ATT&CK*,  *Poäng: 100*
+
+Vi ser att omedelbart några sekunder efter första tekniken försöker angriparen (192.168.177.141) att etablera massa tcp-anslutningar till de ip-adresser som har svarat på arp-requesten (bland annnat filservern och domänkontrollanten) på massa olika portar. En så kallad "portskanning" vilket är tekniken "Network Service Discovery" ur MITRE ATTACK.
+
+<img width="1390" alt="SCR-20250322-oivr" src="https://github.com/user-attachments/assets/a4485f28-4f2d-47fd-b001-b805798713f7" />
+
+Sidan för MITRE ATT&CK-tekniken:
+
+<img width="1480" alt="SCR-20250322-ojfd" src="https://github.com/user-attachments/assets/eaf5dfdf-4dbb-4371-a0c9-2db7b700938f" />
+
+`Svar: T1046`.
+
+---
+
+### ***Resultat av skanning***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+Genom att filtrera på angriparens ip-adress och de lyckade anslutningar (syn,ack) kan vi se de portarna som var öppna. Till exempel port 88 (kerberos), 80 (http) osv.
+
+Vi ser att de ip-addresser som hade öppna portar va 192.168.177.129, 192.168.177.138, 192.168.177.139 och 192.168.177.155. Filtrerar vi sedan på de fyra ip-addressen med "ip.src" kan vi se vilka öppna portar som angriparen hittade på varje ip. Summerar vi dessa och tar bort dubbletter får vi antalet totalt öppna portar som hittades. 10 + 5 + 3 + 3 = 21
+
+<img width="1390" alt="SCR-20250322-oivr" src="https://github.com/user-attachments/assets/a4485f28-4f2d-47fd-b001-b805798713f7" />
+
+<img width="1480" alt="SCR-20250322-ojfd" src="https://github.com/user-attachments/assets/eaf5dfdf-4dbb-4371-a0c9-2db7b700938f" />
+
+`Svar: 21`.
+
+---
+
+### ***Autentiseringsuppgifter 1.0***
+
+*Kategori: MITRE ATT&CK*,  *Poäng: 100*
+
+Vi har redan noterat att kerberos finns i trafiken. I trafiken efter skanningen ser vi att angriparen ber domänkontrollanten om en kerberos-ticket. 
+
+<img width="1387" alt="SCR-20250322-onpf" src="https://github.com/user-attachments/assets/c86aad6c-a60a-43dd-b398-77688ac97ebe" />
+
+<img width="1390" alt="SCR-20250322-onut" src="https://github.com/user-attachments/assets/85bc45c8-ea0d-4cff-8889-b5381de915ef" />
+
+Det rör sig om "AS-REP Roasting". Om "Pre-authentication" är avstängt kan angripare be domänkontrollanten om "tickets" till servicekonton utan att behöva autentisera sig. En ticket de sedan kan försöka knäcka offline för att få tag i lösenordet. Om det lösenordet dessutom är svagt, har man problem.
+
+Sidan för MITRE ATT&CK-subtekniken:
+
+![SCR-20250322-oqny](https://github.com/user-attachments/assets/3ba6fad6-537e-4bef-9ca4-d50edb59218f)
+
+`Svar: T1558.004`.
+
+---
+
+### ***Autentiseringsuppgifter 2.0***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+Man kan se att autentiseringsuppgifterna (ticket) skickas krypterat i en "AS-REP". Denna kan vi dessutom plocka ut med olika tekniker för att knäckas offline. 
+
+<img width="1377" alt="SCR-20250322-orkn" src="https://github.com/user-attachments/assets/ca6d0358-5c2a-4fbd-a7dc-85ac6e7a364b" />
+
+`Svar: 2387`.
+
+---
+
+### ***Lösenord***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+Vi kan plocka ut kerberosbiljetten och knäcka den med till exempel verktyg som hashcat eller john. Men vi har ju minnesdumpen så då kan vi göra det den snabba vägen. Vi kan dumpa ut hashar med en plugin: "windows.hashdump" i volatility3. Genom att får vi ut nt-hashen för admin-kontot dvs "FTPService" som är: 1be448211e59b6428d01d6fe9dfd8f91
+
+<img width="982" alt="SCR-20250322-oytd" src="https://github.com/user-attachments/assets/60b24f37-8837-4088-901f-9b89d386d0fc" />
+
+Vi kan testa stoppa hashen i Crackstation för att se om det är ett tidigare läckt lösenord, vilket det är! Funkar även att knäcka den med hashcat.
+
+<img width="1420" alt="SCR-20250322-oumg" src="https://github.com/user-attachments/assets/df88c20c-0e8f-4c58-8e1e-b19ea68b72e1" />
+
+`Svar: DentalSurgery528`.
+
+
+---
+
+### ***Lösenord***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+Vi kan dumpa ut hashar med plugin "windows.hashdump" i volatility3 på minnesdumpen. Genom att får vi ut nt-hashen för admin-kontot dvs "FTPService" som är: 1be448211e59b6428d01d6fe9dfd8f91
+
+<img width="982" alt="SCR-20250322-oytd" src="https://github.com/user-attachments/assets/60b24f37-8837-4088-901f-9b89d386d0fc" />
+
+Vi kan testa stoppa hashen i Crackstation för att se om det är ett tidigare läckt lösenord, vilket det är:
+
+<img width="1420" alt="SCR-20250322-oumg" src="https://github.com/user-attachments/assets/df88c20c-0e8f-4c58-8e1e-b19ea68b72e1" />
+
+`Svar: DentalSurgery528`.
