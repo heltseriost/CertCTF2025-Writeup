@@ -97,7 +97,7 @@ Fråga: Vad var den absolut första tekniken ur MITRE ATT&CK som angriparen anv�
 
 *Kategori: MITRE ATT&CK*,  *Poäng: 100*
 
-Vi ser att det första gör angriparen (192.168.177.141) gör på nätverket är att köra massa arp-request. Udda trafik som troligtvis är för att få en bild av vilka uppkopplade enheter som finns INTERNT på nätverket. En teknik som kallas "Remote System Discovery" ur taktiken Discovery. INTE att förväxla med tekniken "active scanning" som är en del av taktiken Reconnaissance vilket det inte rör sig om här då vi är inne internt på nätverket och redan har etableras access.
+Vi ser att det första gör angriparen (192.168.177.141) gör på nätverket är att köra massa arp-request. Udda trafik som troligtvis är för att få en bild av vilka uppkopplade enheter som finns INTERNT på nätverket. En teknik som kallas "Remote System Discovery" ur taktiken Discovery. INTE att förväxla med tekniken "active scanning" som är en del av taktiken Reconnaissance vilket det inte rör sig om här då vi är inne internt på nätverket och redan har etablerad access.
 
 <img width="1390" alt="SCR-20250322-odlu" src="https://github.com/user-attachments/assets/f1cf173c-4127-4647-a5cc-4d104f729f15" />
 
