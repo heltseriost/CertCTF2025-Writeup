@@ -332,6 +332,7 @@ Format för svaret: 1234
 ### ***Registerändring***
 
 Fråga: Det finns ett Registernyckelvärde som angriparen ändrade till "0" för att kunna UTNYTTJA den nedladdade binära filen. Vad var namnet? Svara med namnet, exkludera sökvägen.
+
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
 Här kommer svar för Utnyttjande 1.0, Utnyttjande 2.0 och Registerändring!
