@@ -77,6 +77,8 @@ Har man wireshark inställt på svensk tid (dvs. UTC) behöver man inte fundera 
 
 `Svar: 09:42:01`.
 
+---
+
 ### ***Initial teknik***
 
 *Kategori: MITRE ATT&CK*,  *Poäng: 100*
@@ -266,8 +268,17 @@ Om vi sedan lägger in den hex datan i fil har vi återskapat filen och kan se n
 
 `Svar: Håkan Kerberosqvist`.
 
+### ***Fobi***
 
+*Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
+Tittar vi i patientjorunalen för Håkan Kerberosqvist ser vi att han Anitidaefobi. En fobi som innebär att ankor stirrar på en.
+
+<img width="717" alt="SCR-20250322-pxvy" src="https://github.com/user-attachments/assets/ffba74e4-3892-43b1-bfbb-402750414f79" />
+
+<img width="1230" alt="SCR-20250322-pybi" src="https://github.com/user-attachments/assets/6762b54d-b77b-459c-adc9-77084fde04e7" />
+
+---
 
 
 
