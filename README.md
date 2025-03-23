@@ -297,6 +297,7 @@ medan strömmen "1998" verkar innehålla en stor mängd data som laddas ner, str
 
 <img width="1387" alt="SCR-20250323-molq" src="https://github.com/user-attachments/assets/ef04dab1-9305-464a-b368-68ba8ff1fca3" />
 
+Antal paket ser vi här:
 <img width="132" alt="SCR-20250323-mopm" src="https://github.com/user-attachments/assets/fa9033cc-2c62-45bd-8d81-e5743d2266e4" />
 
 Vi vet nu att angriparen laddar ner filer från "raw.githubusercontent.com".
