@@ -220,4 +220,14 @@ Vi har tidigare försökt få ut filen "ConsoleHost_history.txt" för att se pow
 
 Men om vi istället bara kör `strings` och använder `grep` för "facebook.com" får vi upp lite intressanta grejer: 
 
+![SCR-20250323-bgwl](https://github.com/user-attachments/assets/1e1f52cd-e7ba-4e5b-96f1-ceaf8a780a0a)
+
+Öppnar vi dessutom minnesdumpen i en hex-läsare och söker på texten "facebook.com" så kan vi få fram ett script som kör någon slags XOR-kryptering på filen `gd_patient_04.rtf`.
+
+![SCR-20250323-biby](https://github.com/user-attachments/assets/17418c93-b222-44d4-8822-e3dc2f74e229)
+
+![SCR-20250323-bieg](https://github.com/user-attachments/assets/0e856ea1-739c-4093-b856-606aa42b0332)
+
+Vi kan lista ut att scriptet gör följande
+
 
