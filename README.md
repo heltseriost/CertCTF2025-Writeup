@@ -245,7 +245,7 @@ Fråga: Vilken MpPreference parameter ändrade angriparen för Windows Defender 
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
-Vi vet att det rör Windows Defender då kan vi kolla på loggarna för Windows Defender. 09:26:22 (svensk tid) ändrar angriparen så att Windows Defender Antivirus inte scannar sökvägarna C:\Windows\System32\Temp och C:\Windows. Antagligen för att undvika eventuella skadliga filer som är tänkta att placeras där.
+Vi vet att det rör Windows Defender då kan vi kolla på loggarna för Windows Defender. 09:26:22 (svensk tid) ändrar angriparen så att Windows Defender Antivirus inte scannar sökvägarna C:\Windows\System32\Temp och C:\Windows. Antagligen för att undvika att eventuella skadliga filer som är tänkta att placeras där scannas.
 
 <img width="852" alt="excludepath1" src="https://github.com/user-attachments/assets/de2a2a92-0521-4f71-b2e2-37b6cc03c5e2" />
 
