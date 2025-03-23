@@ -359,7 +359,7 @@ Windows-processer laddar in dll-filer från C:\Windows\System32 därefter i sök
 
 explorer.exe är en av få processer på Windows som körs genom C:\Windows. 
 
-Detta innebär om angriparen placerar in sin "cscapi.dll" och stänger av värdet av "SafeDllSearchMode" till 0 kommer explorer.exe ladda in C:\Windows\cscapi.dll och därmed angriparens fil när processen startas. Explorer startas automatiskt för de flesta datorer vid uppstart och är en process som såklart körs väldigt ofta vilket innebär att det är en smart process för angripare att utnyttja för Persistence.
+Detta innebär om angriparen placerar in sin "cscapi.dll" och sätter värdet av "SafeDllSearchMode" till 0 kommer explorer.exe ladda in C:\Windows\cscapi.dll och därmed angriparens fil när processen startas. Explorer startas automatiskt för de flesta datorer vid uppstart och är en process som såklart körs väldigt ofta vilket innebär att det är en smart process för angripare att utnyttja för Persistence.
 
 Ändringen av registernyckeln syns också om man söker efter "SafeDllSearchMode" i minnesdumpen och går att i princip bekräfta på så vis:
 
