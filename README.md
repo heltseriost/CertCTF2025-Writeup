@@ -8,11 +8,9 @@ Följer tidslinjen i attacken som pågick i cirka 20 minuter.
 
 Fråga: Vilken IPv4-adress använde angriparen sig av initialt i attacken?
 
-*Kategori: Adresser*,  *Poäng: 100*
+*Kategori: Adresser*,  *Poäng: 284*
 
 Vi vet från "scenario.txt" att angriparen har kopplat in en mini-dator på nätverket där skrivaren egentligen sitter, möjligtvis på samma subnät.
-
-Ett smart sätt att approacha en uppgift som denna är att försöka skapa sig en övergripande bild, tidslinje, jämföra olika filer med varandra för att försöka följa angriparens steg. Attacken pågår i knappt 20 minuter.
 
 Genom att titta på "IPv4 statistics" ser vi att ip-adresser på subnätet "192.168.177.0/24" står för den absoluta majoriteten av trafiken:
 
@@ -32,7 +30,7 @@ Vi kan då räkna ut ganska snabbt att ip-adressen som angriparen använde sig a
 
 Fråga: Vilken IPv4-adress hade FTP-servern?
 
-*Kategori: Adresser*,  *Poäng: 100*
+*Kategori: Adresser*,  *Poäng: 258*
 
 Vi vet från "scenario.txt" att filservern är drabbad, i och med anslutningen från 192.168.177.141 till 192.168.177.155 kan vi ganska snabbt lista ut att det är filservern.
 
@@ -48,7 +46,7 @@ Dessutom använder ftp port 21. Filtrerar vi på lyckade anslutningar på port 2
 
 Fråga: Vilken IPv4-adress hade domänkontrollanten?
 
-*Kategori: Adresser*,  *Poäng: 100*
+*Kategori: Adresser*,  *Poäng: 267*
 
 Domänkontrollanten hanterar Windows Active Directorys biljettsystem Kerberos. Filtrerar vi på detta kan vi luska ut att det troligtvis rör sig om adressen 192.168.177.129.
 
@@ -66,7 +64,7 @@ filtrerar vi på adressen kan vi dessutom bekräfta detta ännu mer med namnet "
 
 Fråga: Vad var angriparens hostname?
 
-*Kategori: Adresser*,  *Poäng: 100*
+*Kategori: Adresser*,  *Poäng: 423*
 
 Vi vet att angriparen är 192.168.177.141. filtrerar vi på dhcp och 192.168.177.141 får vi följande:
 
@@ -84,7 +82,7 @@ Klickar vi på request-paketet kan vi se hostname för 192.168.177.141:
 
 Fråga: Vilken lokal tid (svensk tid) anlände sista paketet i inspelningen av nätverkstrafiken? Avrunda neråt till hel sekund!
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 267*
 
 Har man wireshark inställt på svensk tid (dvs. CET) behöver man inte fundera så mycket, men har man inte det kan man också klicka på sista paketet och då ser vi tiden svenskt tid (CET). Avrundar vi neråt till helsekund får vi svaret:
 
@@ -98,7 +96,7 @@ Har man wireshark inställt på svensk tid (dvs. CET) behöver man inte fundera 
 
 Fråga: Vad var den absolut första tekniken ur MITRE ATT&CK som angriparen använde sig av på nätverket? Svara med ID-numret.
 
-*Kategori: MITRE ATT&CK*,  *Poäng: 100*
+*Kategori: MITRE ATT&CK*,  *Poäng: 496*
 
 Vi ser att det första gör angriparen (192.168.177.141) gör på nätverket är att köra massa arp-request. Udda trafik som troligtvis är för att få en bild av vilka uppkopplade enheter som finns INTERNT på nätverket. En teknik som kallas "Remote System Discovery" ur taktiken Discovery. INTE att förväxla med tekniken "active scanning" som är en del av taktiken Reconnaissance vilket det inte rör sig om här då vi är inne internt på nätverket och redan har etablerad access.
 
@@ -116,7 +114,7 @@ Sidan för MITRE ATT&CK-tekniken:
 
 Fråga: Omedelbart (cirka 5-6 sekunder) efter tekniken som användes i utmaningen Initial teknik använder angriparen en annan teknik ur MITRE ATT&CK. Vilken teknik var det?
 
-*Kategori: MITRE ATT&CK*,  *Poäng: 100*
+*Kategori: MITRE ATT&CK*,  *Poäng: 490*
 
 Vi ser att omedelbart några sekunder efter första tekniken försöker angriparen (192.168.177.141) att etablera massa tcp-anslutningar till de ip-adresser som har svarat på arp-requesten (bland annnat filservern och domänkontrollanten) på massa olika portar. En så kallad "portskanning" vilket är tekniken "Network Service Discovery" ur MITRE ATT&CK.
 
@@ -134,7 +132,7 @@ Sidan för MITRE ATT&CK-tekniken:
 
 Fråga: Hur många öppna portar hittade angriparen totalt på Gentle Dentals nätverk med sin skanning från utmaningen Utökad teknik?
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 496*
 
 Genom att filtrera på angriparens ip-adress och de lyckade anslutningar (syn,ack) kan vi se de portarna som var öppna. Till exempel port 88 (kerberos), 80 (http) osv.
 
@@ -152,7 +150,7 @@ Filtrerar vi sedan på de fyra ip-adresser genom att lägga till "ip.src" på fi
 
 Fråga: Angriparen lyckades få tag i autentiseringsuppgifter. Vilken subteknik ur MITRE ATT&CK användes? Svara med ID-numret för subtekniken.
 
-*Kategori: MITRE ATT&CK*,  *Poäng: 100*
+*Kategori: MITRE ATT&CK*,  *Poäng: 496*
 
 Vi har redan noterat att kerberos finns i trafiken. I trafiken efter skanningen ser vi att angriparen ber domänkontrollanten om en kerberos-ticket. 
 
@@ -174,7 +172,7 @@ Sidan för MITRE ATT&CK-subtekniken:
 
 Fråga: I vilket paket i nätverkstrafiken fick angriparen tag i autentiseringsuppgifterna från utmaningen "Autentiseringsuppgifter 1.0"?
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 495*
 
 Man kan se att autentiseringsuppgifterna (ticket) skickas krypterat i en "AS-REP".
 
@@ -206,7 +204,7 @@ Vi kan använda verktyg som hashcat eller john för knäcka hashen men vi kan oc
 
 Fråga: Angriparen lyckades logga in på en av datorerna på något sätt. Vilket Logon ID tillhör den obehöriga inloggningen?
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 451*
 
 Inloggningar kan vi se i loggarna, i Security.evtx-loggen. Det ger event-ID: 4624
 
@@ -228,7 +226,7 @@ Här ifrån vet vi nu att angriparen har lyckats ta sig in på filservern och ä
 
 Fråga: Persistence är en taktik som angripare ofta använder för att försöka bevara sin åtkomst. Vilken första persistence subteknik ur MITRE ATT&CK använde sig angriparen av?
 
-*Kategori: MITRE ATT&CK*,  *Poäng: 100*
+*Kategori: MITRE ATT&CK*,  *Poäng: 500*
 
 Angriparen vill bevara sin åtkomst på något sätt vilket tyder på att han är inloggad på en annan dator (filserverns dator). Vi vet att angriparen loggade in på FTP-servern (192.168.177.155) från 192.168.177.141 ungefär kl 09:24:59 (svensk tid). 
 
@@ -270,13 +268,13 @@ https://www.huntress.com/blog/you-can-run-but-you-cant-hide-defender-exclusions
 
 Fråga: Angriparen lyckades ladda ner filer. Hur många paket innehöll den fullständiga strömmen där angriparen laddade ner filer?
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
 ### ***Nedladdning 2.0***
 
 Fråga: Vad hette den binära filen som angriparen laddade ner? Svara med namn och filändelse.
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
 Svar för både Nedladdning 1.0 och Nedladdning 2.0 då de hänger lite ihop.
 
@@ -327,7 +325,7 @@ Det laddas ner en fil från en privat Github-repo med en api-token. Filen verkar
 
 Fråga: Vilken subteknik ur MITRE ATT&CK användes av angriparen för att utnyttja den binära filen som laddades ner i utmaningen Nedladdning 2.0? Svara med ID-numret
 
-*Kategori: MITRE ATT&CK*,  *Poäng: 100*
+*Kategori: MITRE ATT&CK*,  *Poäng: 500*
 
 ### ***Utnyttjande 2.0***
 
@@ -335,13 +333,13 @@ Fråga: Vilket process-id hade den process som utnyttjade angriparens binära fi
 
 Format för svaret: 1234
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
 ### ***Registerändring***
 
 Fråga: Det finns ett Registernyckelvärde som angriparen ändrade till "0" för att kunna UTNYTTJA den nedladdade binära filen. Vad var namnet? Svara med namnet, exkludera sökvägen.
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
 Här kommer svar för Utnyttjande 1.0, Utnyttjande 2.0 och Registerändring!
 
@@ -389,7 +387,7 @@ Denna teknik kallas "DLL Search Order Hijacking". ID-nummer för MITRE ATT&CK-su
 
 Fråga: Den binära filen i utmaningen Nedladdning 2.0 innehöll ett meddelande. Återge detta meddelande
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
 Vi kan carva ut den binära filen "cscapi.dll" med volatility3 och analysera den med reversing-verktyg eller köra den i virtuell Windowsmiljö med rundll32.exe om vi vill. Jag har Mac så jag kör statisk analys med radare2 för enkelhetens skull.
 
@@ -411,7 +409,7 @@ f0r_3th1c4l_purp0535_th15_d03s_n0t_c0nt41n_4n_3ncrypt3d_p4yl04d_f0r_4_b4ckd00r
 
 Fråga: Vilken IPv4-adress hade angriparens egna server?
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 200*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 490*
 
 ### ***Dataläckan***
 
@@ -500,7 +498,7 @@ Tittar vi i patientjournalerna för Håkan Kerberosqvist ser vi att han lider av
 
 ### ***Ransomware 1.0 - Nyckeln***
 
-*Kategori: Utpressning*,  *Poäng: 500*
+*Kategori: Utpressning*,  *Poäng: 484*
 
 Denna uppgiften var lite misslyckad då vi i efterhand insåg att det "primtalet" som vi valde visade sig inte vara ett primtal då det är delbart med 3, oops.. 
 
@@ -546,7 +544,7 @@ Detta uppskattar jag tar cirka 3-10 minuter beroende på datorns prestanda:
 
 ### ***Ransomware 2.0 - Textsträngen***
 
-*Kategori: Utpressning*,  *Poäng: 500*
+*Kategori: Utpressning*,  *Poäng: 490*
 
 Med den privata nyckeln som vi hittat: 177370085 kan vi sedan knäcka krypteringen och få ut den känsliga datan med följande Python-script:
 
