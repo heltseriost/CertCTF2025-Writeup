@@ -204,7 +204,17 @@ Vi kan se massa dns-paket till ip-addressen "10.245.122.37" i nätverkstrafiken 
 
 ---
 
+### ***Dataläckan***
 
+*Kategori: Utredning av IT-attacken*,  *Poäng: 500*
+
+SE WRITEUP PÅ "Angriparens server" OVAN!
+
+Stoppar vi in datan i Cyberchef kan vi misstänka att datan är krypterad:
+
+![SCR-20250323-bbif](https://github.com/user-attachments/assets/7b81e732-6629-48a6-ac4e-69058fe514d6)
+
+Vi kan försöka brute-forcea olika typer av vanliga krypteringsmetoder, men vi kan också försöka luska i minnesdumpen och se om vi kan hitta något där.
 
 
 
