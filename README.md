@@ -189,6 +189,8 @@ Vi kan bekräfta detta också genom att jämföra med nätverkstrafiken:
 
 <img width="1373" alt="SCR-20250322-nlvv" src="https://github.com/user-attachments/assets/309e1b93-d7ff-4ab0-866a-d98a52172ef6" />
 
+Här ifrån vet vi nu att angriparen har lyckats ta sig in på filservern och är nu inloggad på den den datorn.
+
 `Svar: 0xffcab eller 0x00000000000ffcab`
 
 ---
@@ -199,7 +201,7 @@ Vi kan bekräfta detta också genom att jämföra med nätverkstrafiken:
 
 Angriparen vill bevara sin åtkomst på något sätt vilket tyder på att han är inloggad på en annan dator (filserverns dator). Vi vet att angriparen loggade in på FTP-servern (192.168.177.155) från 192.168.177.141 ungefär kl 09:24:59 (svensk tid). 
 
-Följer vi loggarna kort efter inloggningen ser vi att 40 sekunder senare skapas ett nytt konto som heter svcUpdate genom Event ID 4720. Ett vanligt sätt för angripare att snabbt försöka etablera framtida åtkomst är att skapa konton, här med ett namn som kanske smälter in. Här gäller det att vara lite noga med detaljerna. Det vi ser är att domänen som kontot skapas på är FTPSERVICE, vilket kanske inte höjer ögonbryn om man inte tänker på att den riktiga domänen är gentledental. Detta betyder att svcUpdate är ett lokalt skapat konto på datorn och inte ett konto via domänen för företaget. Söker vi på "MITRE local account persistence" hittar vi T1136.001 som beskriver detta mycket väl. Då det sker 40 sekunder in efter inloggningen bör detta vara den första attacken. 
+Följer vi loggarna kort efter inloggningen ser vi att 40 sekunder senare 09:25:40 (svensk tid) skapas ett nytt konto som heter svcUpdate genom Event ID 4720. Ett vanligt sätt för angripare att snabbt försöka etablera framtida åtkomst är att skapa konton, här med ett namn som kanske smälter in. Här gäller det att vara lite noga med detaljerna. Det vi ser är att domänen som kontot skapas på är FTPSERVICE, vilket kanske inte höjer ögonbryn om man inte tänker på att den riktiga domänen är gentledental. Detta betyder att svcUpdate är ett lokalt skapat konto på datorn och inte ett konto via domänen för företaget. Söker vi på "MITRE local account persistence" hittar vi T1136.001 som beskriver detta mycket väl. Då det sker 40 sekunder in efter inloggningen bör detta vara den första attacken. 
 
 <img width="558" alt="localaccount" src="https://github.com/user-attachments/assets/dabb333c-ce55-42f2-80f7-80b91ec02a6b" />
 
@@ -218,20 +220,145 @@ Man kan läsa om detta på Microsofts hemsida: https://learn.microsoft.com/en-us
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
-Vi vet att det rör Windows Defender då kan vi kolla på loggarna för Windows Defender. 09:26:
+Vi vet att det rör Windows Defender då kan vi kolla på loggarna för Windows Defender. 09:26:22 ändrar angriparen så att Windows Defender Antivirus inte scannar sökvägarna C:\Windows\System32\Temp och C:\Windows. Antagligen för att undvika eventuella skadliga filer som är tänkta att placeras där.
 
 <img width="852" alt="excludepath1" src="https://github.com/user-attachments/assets/de2a2a92-0521-4f71-b2e2-37b6cc03c5e2" />
 
 <img width="837" alt="excludepath2" src="https://github.com/user-attachments/assets/5c4a440d-b273-41c9-abe4-17f49df92a32" />
 
+MpPreference parametern blir då "ExclusionPath".
 
+Här är ett bra blogginlägg som beskriver denna vanliga teknik för AV-evasion:
 
-
-
+https://www.huntress.com/blog/you-can-run-but-you-cant-hide-defender-exclusions
 
 `Svar: ExclusionPath`
 
 ---
+
+### ***Nedladdning 1.0***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+IP-addressen 192.168.177.141 är ju en mini-dator med kali som vi listade ut i "Angriparens hostname". På en kalidator har man ju massa verktyg men nu när angriparen är inloggad på FTP-servern (192.168.177.155) kan man tänka sig att han vill ladda ner filer, verktyg och annat för att kunna utföra attacker.
+ 
+Vi hittar ingen http trafik i nätverkstrafiken så antingen har angriparen en server med "fejkad" https eller så laddar angriparen ner från internet från någon domän.
+
+filtrerar vi på dns för att se domäner i trafiken får vi upp lite olika bland annat microsoft-update domäner, kanske inte jätteintressant. MEN en domän som är intressant är github (api.github.com och raw.githubusercontent.com). Angripare använder ibland Github för "Malware hosting". 
+
+Vi får fram två tcp-strömmar med github genom filtret "frame contains github"
+
+Första strömmen "1997" med api.github.com innehåller trafik för interaktionen:
+
+<img width="1388" alt="SCR-20250323-mtjn" src="https://github.com/user-attachments/assets/61ddd6ce-c091-4173-ab7e-bbc2aea7cf24" />
+
+medan strömmen "1998" verkar innehålla en stor mängd data som laddas ner, strömmen innehåller 100 paket:
+
+<img width="1387" alt="SCR-20250323-molq" src="https://github.com/user-attachments/assets/ef04dab1-9305-464a-b368-68ba8ff1fca3" />
+
+<img width="132" alt="SCR-20250323-mopm" src="https://github.com/user-attachments/assets/fa9033cc-2c62-45bd-8d81-e5743d2266e4" />
+
+`Svar: 100`
+
+---
+
+### ***Nedladdning 2.0***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+Vi vet nu att angriparen laddar ner filer från "raw.githubusercontent.com".
+
+Det finns en fil som loggar powershell som hetter "ConsoleHost_history.txt" så den kan vi försöka carva ut ur minnet med volatility3. Men den verkar tyvärr inte logga eller så är den överskriven..
+
+<img width="1406" alt="SCR-20250322-ppmo" src="https://github.com/user-attachments/assets/ba8f4265-1fa9-4748-9760-303af61201d1" />
+
+Om vi däremot kör `strings` på minnesdumpen eller öppnar den i en hex-läsare och söker efter texten "raw.githubusercontent.com" eller "api.github.com" kan vi hitta följande:
+
+<img width="1494" alt="SCR-20250323-myyq" src="https://github.com/user-attachments/assets/c0dff97c-45e1-407c-8f46-303cb35c7609" />
+
+Det laddas ner en fil från en privat Github-repo med en api-token. Filen verkar heta cscapi.dll och är 93959 bytes. Vilket verkar stämma ganska väl överens med datamängden som vi såg tidigare i tcp-strömmen "1998" i utmaningen Nedladdning 1.0. Kollar vi upp Githubsidan får vi detta:
+
+<img width="1318" alt="SCR-20250322-prrh" src="https://github.com/user-attachments/assets/b856af3a-df98-460e-9e2a-f5c182067122" />
+
+`Svar: cscapi.dll`
+
+---
+
+### ***Utnyttjande 1.0***
+*Kategori: MITRE ATT&CK*,  *Poäng: 100*
+### ***Utnyttjande 2.0***
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+### ***Registerändring***
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+Här kommer svar för Utnyttjande 1.0, Utnyttjande 2.0 och Registerändring!
+
+Dessa tre utmaningar hör lite ihop.
+
+Vi vet nu att den binära filen är "cscapi.dll", det är en vanlig fil legitim dll som är sårbar att kapa för DLL Hijacking bland annat genom explorer.exe. En snabb googling visar detta:
+
+<img width="1318" alt="SCR-20250322-prrh" src="https://github.com/user-attachments/assets/502b5554-ff09-4fe0-9dab-aff4597d56ba" />
+
+Använder vi volatility3 med plugin: windows.dlllist och använder `grep` för cscapi.dll kan vi se vilka dll-filer med det namnet som har laddats in och av vilken process. Vi ser här att några processer laddar in C:\Windows\System32\cscapi.dll runt 09:19 (svensk tid). Men explorer.exe laddar in C:\Windows\cscapi.dll vid 09:43:01 (svensk tid). Process-id för exlorer.exe är: 4112. 
+
+<img width="1399" alt="SCR-20250322-psus" src="https://github.com/user-attachments/assets/62010e5f-8956-4fb5-a268-f15258d65f1e" />
+
+Vi vet ju att angriparen sedan tidigare har exluderat Windows Defender Antivirus att scanna C:\Windows.
+
+Troligtvis har angriparen då placerat sin egna skadliga cscapi.dll här genom att ladda ner den till eller flyttat den till C:\Windows för att få explorer.exe att ladda in angriparens dll-fil istället för den legitima. 
+
+Windows-processer laddar in dll-filer från C:\Windows\System32 därefter i sökvägen som processen startas. Det reglereras av registernycklen: "SafeDllSearchMode".
+
+explorer.exe är en av få processer på Windows som körs genom C:\Windows. 
+
+Detta innebär om angriparen placerar in sin "cscapi.dll" och stänger av "SafeDllSearchMode" kommer explorer.exe ladda in C:\Windows\cscapi.dll och därmed angriparens fil när processen startas.
+
+Denna teknik kallas "DLL Search Order Hijacking". ID-nummer för MITRE ATT&CK-subtekniken: T1574.001
+
+<img width="1428" alt="SCR-20250323-nwyi" src="https://github.com/user-attachments/assets/cd0c4300-f433-45f7-86ae-e7a0bb54a18b" />
+
+`Svar Utnyttjande 1.0: T1574.001`
+
+`Svar Utnyttjande 2.0: 4112`
+
+`Svar Registerändring: SafeDllSearchMode`
+
+---
+
+### ***Binära filens meddelande***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+Vi kan carva ut den binära filen "cscapi.dll" med volatility3 och analysera den med reversing-verktyg eller köra den i virtuell Windowsmiljö med rundll32.exe om vi vill. Jag har mac så jag kör statisk analys med radare2 för enkelhetens skull.
+
+Jag körde här plugins: "windows.filescan" (för att hitta den virtuella adressen) och "windows.dumpfiles" (för att dumpa ut filen). 
+
+Sen analyserar jag den med radare2 och ser att den ger ett notifikations-fönster med en textsträng som är tänkt att "simulera" en bakdörr:
+
+<img width="1398" alt="SCR-20250322-psey" src="https://github.com/user-attachments/assets/e39d7f54-0536-4558-873a-72e3acf9deee" />
+
+<img width="1385" alt="SCR-20250322-psmd" src="https://github.com/user-attachments/assets/d9d64b09-8a79-4c7e-8809-d12d4c0bf5d5" />
+
+f0r_3th1c4l_purp0535_th15_d03s_n0t_c0nt41n_4n_3ncrypt3d_p4yl04d_f0r_4_b4ckd00r
+
+`Svar: f0r_3th1c4l_purp0535_th15_d03s_n0t_c0nt41n_4n_3ncrypt3d_p4yl04d_f0r_4_b4ckd00r`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### ***Angriparens server***
 
