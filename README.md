@@ -151,7 +151,7 @@ Sidan för MITRE ATT&CK-subtekniken:
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
-Man kan se att autentiseringsuppgifterna (ticket) skickas krypterat i en "AS-REP". Denna kan vi dessutom plocka ut med olika tekniker för att knäckas offline. 
+Man kan se att autentiseringsuppgifterna (ticket) skickas krypterat i en "AS-REP".
 
 <img width="1377" alt="SCR-20250322-orkn" src="https://github.com/user-attachments/assets/ca6d0358-5c2a-4fbd-a7dc-85ac6e7a364b" />
 
@@ -163,32 +163,73 @@ Man kan se att autentiseringsuppgifterna (ticket) skickas krypterat i en "AS-REP
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
-Vi kan plocka ut kerberosbiljetten och knäcka den med till exempel verktyg som hashcat eller john. Men vi har ju minnesdumpen så då kan vi göra det den snabba vägen. Vi kan dumpa ut hashar med en plugin: "windows.hashdump" i volatility3. Genom att får vi ut nt-hashen för admin-kontot dvs "FTPService" som är: 1be448211e59b6428d01d6fe9dfd8f91
+Vi kan dumpa ut hashar med plugin "windows.hashdump" i volatility3 på minnesdumpen. Genom detta får vi ut nt-hashen för admin-kontot dvs "FTPService" som är: 1be448211e59b6428d01d6fe9dfd8f91
 
 <img width="982" alt="SCR-20250322-oytd" src="https://github.com/user-attachments/assets/60b24f37-8837-4088-901f-9b89d386d0fc" />
 
-Vi kan testa stoppa hashen i Crackstation för att se om det är ett tidigare läckt lösenord, vilket det är! Funkar även att knäcka den med hashcat.
+Vi kan använda verktyg som hashcat eller john för knäcka hashen men vi kan också testa att stoppa in den i Crackstation för att se om det är ett tidigare läckt lösenord, vilket det är:
 
 <img width="1420" alt="SCR-20250322-oumg" src="https://github.com/user-attachments/assets/df88c20c-0e8f-4c58-8e1e-b19ea68b72e1" />
 
 `Svar: DentalSurgery528`
-
 
 ---
 
-### ***Lösenord***
+### ***Obehörig inloggning***
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
-Vi kan dumpa ut hashar med plugin "windows.hashdump" i volatility3 på minnesdumpen. Genom att får vi ut nt-hashen för admin-kontot dvs "FTPService" som är: 1be448211e59b6428d01d6fe9dfd8f91
+Inloggningar kan vi se i loggarna, i Security.evtx-loggen. Det ger event-ID: 4624
 
-<img width="982" alt="SCR-20250322-oytd" src="https://github.com/user-attachments/assets/60b24f37-8837-4088-901f-9b89d386d0fc" />
+Här finns det betydligt bättre verktyg att analysera loggar om man har Windows. Jag har Mac så jag kör python-evtx och kollar på loggarna i XML-format. Här får vi tänka på tidsformatet. Loggarna är i ETC och inte UTC alltså då en timme tidigare så det måste vi justera och förstå att det ska läggas till en timme. Den första loggen som dyker upp är en inloggning från angriparen (192.168.177.141) ca 09:24:59 (Svensk tid) då med logon-ID 0x00000000000ffcab, alltså 0xffcab.
 
-Vi kan testa stoppa hashen i Crackstation för att se om det är ett tidigare läckt lösenord, vilket det är:
+<img width="672" alt="bild4" src="https://github.com/user-attachments/assets/bf9cdf5a-5401-421b-96df-b3cf1595a0ba" />
 
-<img width="1420" alt="SCR-20250322-oumg" src="https://github.com/user-attachments/assets/df88c20c-0e8f-4c58-8e1e-b19ea68b72e1" />
+Vi kan bekräfta detta också genom att jämföra med nätverkstrafiken:
 
-`Svar: DentalSurgery528`
+<img width="1373" alt="SCR-20250322-nlvv" src="https://github.com/user-attachments/assets/309e1b93-d7ff-4ab0-866a-d98a52172ef6" />
+
+`Svar: 0xffcab eller 0x00000000000ffcab`
+
+---
+
+### ***Fortsatt åtkomst***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+Angriparen vill bevara sin åtkomst på något sätt vilket tyder på att han är inloggad på en annan dator (filserverns dator). Vi vet att angriparen loggade in på FTP-servern (192.168.177.155) från 192.168.177.141 ungefär kl 09:24:59 (svensk tid). 
+
+Följer vi loggarna kort efter inloggningen ser vi att 40 sekunder senare skapas ett nytt konto som heter svcUpdate genom Event ID 4720. Ett vanligt sätt för angripare att snabbt försöka etablera framtida åtkomst är att skapa konton, här med ett namn som kanske smälter in. Här gäller det att vara lite noga med detaljerna. Det vi ser är att domänen som kontot skapas på är FTPSERVICE, vilket kanske inte höjer ögonbryn om man inte tänker på att den riktiga domänen är gentledental. Detta betyder att svcUpdate är ett lokalt skapat konto på datorn och inte ett konto via domänen för företaget. Söker vi på "MITRE local account persistence" hittar vi T1136.001 som beskriver detta mycket väl. Då det sker 40 sekunder in efter inloggningen bör detta vara den första attacken. 
+
+<img width="558" alt="localaccount" src="https://github.com/user-attachments/assets/dabb333c-ce55-42f2-80f7-80b91ec02a6b" />
+
+Man kan läsa om detta på Microsofts hemsida: https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4720
+
+<img width="1173" alt="SCR-20250323-lmbu" src="https://github.com/user-attachments/assets/6fcf40a6-75df-4258-88af-3fca47b34bb8" />
+
+<img width="1167" alt="SCR-20250323-lmen" src="https://github.com/user-attachments/assets/a5ca5315-c993-4e51-8b17-419e58d18430" />
+
+
+`Svar: T1136.001`
+
+---
+
+### ***Windows Defender***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+Vi vet att det rör Windows Defender då kan vi kolla på loggarna för Windows Defender. 09:26:
+
+<img width="852" alt="excludepath1" src="https://github.com/user-attachments/assets/de2a2a92-0521-4f71-b2e2-37b6cc03c5e2" />
+
+<img width="837" alt="excludepath2" src="https://github.com/user-attachments/assets/5c4a440d-b273-41c9-abe4-17f49df92a32" />
+
+
+
+
+
+
+`Svar: ExclusionPath`
 
 ---
 
