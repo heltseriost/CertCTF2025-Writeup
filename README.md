@@ -277,11 +277,13 @@ Fråga: Vad hette den binära filen som angriparen laddade ner? Svara med namn o
 
 Svar för både Nedladdning 1.0 och Nedladdning 2.0 då de hänger lite ihop.
 
-IP-addressen 192.168.177.141 är en mini-dator med kali som vi listade ut i "Angriparens hostname". På en Kali-dator har man massa verktyg men nu när angriparen är inloggad på FTP-servern (192.168.177.155) kan man tänka sig att han vill ladda ner filer, verktyg och annat för att kunna utföra attacker.
+IP-adressen 192.168.177.141 är en mini-dator med troligtvis kali som vi listade ut i "Angriparens hostname". På en Kali-dator eller liknande har man  oftastmassa verktyg men nu när angriparen är inloggad på FTP-servern (192.168.177.155) kan man tänka sig att han vill ladda ner filer till datorn, verktyg och annat för att kunna utföra attacker.
  
-Vi hittar ingen http trafik i nätverkstrafiken så antingen har angriparen en server med "fejkad" https eller så laddar angriparen ner från internet från någon domän.
+Vi hittar ingen http eller ftp i nätverkstrafiken så antingen har angriparen en egen https-server med ett eget skapat SSL-certifikat eller så laddar angriparen ner från internet från någon domän.
 
-filtrerar vi på dns för att se domäner i trafiken får vi upp lite olika bland annat microsoft-update domäner, kanske inte jätteintressant. MEN en domän som är intressant är github (api.github.com och raw.githubusercontent.com). Angripare använder ibland Github för "Malware hosting". 
+filtrerar vi på dns för att se domäner i trafiken får vi upp lite olika bland annat microsoft-update, kanske inte jätteintressant. MEN en domän som är intressant är Github (api.github.com och raw.githubusercontent.com). Angripare använder ibland Github för "Malware hosting". 
+
+<img width="1360" alt="SCR-20250322-piuq" src="https://github.com/user-attachments/assets/97f92c24-2048-4193-812a-717e93c38af4" />
 
 Vi får fram två tcp-strömmar med github genom filtret "frame contains github"
 
