@@ -203,7 +203,7 @@ Fråga: Angriparen lyckades logga in på en av datorerna på något sätt. Vilke
 
 Inloggningar kan vi se i loggarna, i Security.evtx-loggen. Det ger event-ID: 4624
 
-Här finns det betydligt bättre verktyg att analysera loggar om man har Windows. Jag har Mac så jag kör python-evtx och kollar på loggarna i XML-format. Här får vi tänka på tidsformatet. Loggarna är i ETC och inte UTC alltså då en timme tidigare så det måste vi justera och förstå att det ska läggas till en timme. Den första loggen som dyker upp är en inloggning från angriparen (192.168.177.141) ca 09:24:59 (Svensk tid) då med logon-ID 0x00000000000ffcab, alltså 0xffcab.
+Här finns det betydligt bättre verktyg att analysera loggar om man har Windows. Jag har Mac så jag kör python-evtx och kollar på loggarna i XML-format. Här får vi tänka på tidsformatet. Loggarna är i UTC och inte CET alltså då en timme tidigare så det måste vi justera och förstå att det ska läggas till en timme för att justera till svensk tid. Den första loggen som dyker upp är en inloggning från angriparen (192.168.177.141) ca 09:24:59 (Svensk tid) då med logon-ID 0x00000000000ffcab, alltså 0xffcab.
 
 <img width="672" alt="bild4" src="https://github.com/user-attachments/assets/bf9cdf5a-5401-421b-96df-b3cf1595a0ba" />
 
@@ -374,7 +374,7 @@ Fråga: Den binära filen i utmaningen Nedladdning 2.0 innehöll ett meddelande.
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
-Vi kan carva ut den binära filen "cscapi.dll" med volatility3 och analysera den med reversing-verktyg eller köra den i virtuell Windowsmiljö med rundll32.exe om vi vill. Jag har mac så jag kör statisk analys med radare2 för enkelhetens skull.
+Vi kan carva ut den binära filen "cscapi.dll" med volatility3 och analysera den med reversing-verktyg eller köra den i virtuell Windowsmiljö med rundll32.exe om vi vill. Jag har Mac så jag kör statisk analys med radare2 för enkelhetens skull.
 
 Jag körde här plugins: "windows.filescan" (för att hitta den virtuella adressen) och "windows.dumpfiles" (för att dumpa ut filen). 
 
@@ -396,21 +396,15 @@ Fråga: Vilken IPv4-adress hade angriparens egna server?
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 200*
 
-Vi kan se massa dns-paket till ip-addressen "10.245.122.37" i nätverkstrafiken som indikerar "DNS tunneling". En teknik som angripare ofta använde sig av för att oupptäckt skicka data i query-fältet, för till exempel exfiltration eller för kommunikation med en C2-server. I detta fallet ser vi långa strängar med vad som ser ut som hex data med domänen facebook.com. Till exempel: 0.383d06170e7c392808262a3d0f223c2520111352.facebook.com
-
-<img width="1375" alt="SCR-20250322-ptpl" src="https://github.com/user-attachments/assets/e1688689-ffcd-4bd5-8792-53470c76bcf1" />
-
-`Svar: 10.245.122.37`
-
----
-
 ### ***Dataläckan***
 
 Fråga: Angriparen misstänkts ha stulit känslig information om en patient. Vad heter denna personen? Svara med för-och efternamn.
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
-SE WRITEUP PÅ "Angriparens server" OVAN!
+Vi kan se massa dns-paket till ip-addressen "10.245.122.37" i nätverkstrafiken som indikerar "DNS tunneling". En teknik som angripare ofta använde sig av för att oupptäckt skicka data i query-fältet, för till exempel exfiltration eller för kommunikation med en C2-server. I detta fallet ser vi långa strängar med vad som ser ut som hex data med domänen facebook.com. Till exempel: 0.383d06170e7c392808262a3d0f223c2520111352.facebook.com
+
+<img width="1375" alt="SCR-20250322-ptpl" src="https://github.com/user-attachments/assets/e1688689-ffcd-4bd5-8792-53470c76bcf1" />
 
 Stoppar vi in datan i Cyberchef kan vi misstänka att datan är krypterad:
 
@@ -466,7 +460,8 @@ Om vi sedan lägger in den hex-datan i en fil har vi återskapat filen och kan s
 
 ![SCR-20250322-pxvy](https://github.com/user-attachments/assets/c400ed47-d084-4a61-8c96-0ccde2ea0fe9)
 
-`Svar: Håkan Kerberosqvist`
+`Svar Angriparens server: 10.245.122.37`
+`Svar Dataläckan: Håkan Kerberosqvist`
 
 ---
 
