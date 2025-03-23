@@ -16,7 +16,7 @@ Genom att titta på "IPv4 statistics" ser vi att ip-adresser på subnätet "192.
 
 <img width="1501" alt="SCR-20250322-noff" src="https://github.com/user-attachments/assets/ca3684ac-77c8-464d-8f36-8bbdf3ca8941" />
 
-Tittar vi initial på trafiken ser vi att det sker massa trafik udda trafik från "192.168.177.141" bland annat massa arp-request, misslyckade tcp-anslutningar och sen en uppkoppling mot 192.168.177.155 på port 4444 vilket är misstänkt. Port 4444 är en bland annat en klassisk "lyssnarport" för "Metasploit framework" och Meterpreter. 
+Tittar vi initialt på trafiken ser vi att det sker massa udda trafik från "192.168.177.141" bland annat massa arp-request, misslyckade tcp-anslutningar och sen en uppkoppling mot 192.168.177.155 på port 4444 vilket är misstänkt. Port 4444 är en bland annat en klassisk "lyssnarport" för "Metasploit framework" och Meterpreter. 
 
 https://www.cbtnuggets.com/common-ports/what-is-port-4444
 
