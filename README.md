@@ -233,8 +233,6 @@ Följer vi loggarna kort efter inloggningen ser vi att 40 sekunder senare 09:25:
 
 <img width="558" alt="localaccount" src="https://github.com/user-attachments/assets/dabb333c-ce55-42f2-80f7-80b91ec02a6b" />
 
-Man kan läsa om detta på Microsofts hemsida: https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4720
-
 Sidan på MITRE ATT&CK för subtekniken:
 
 <img width="1261" alt="SCR-20250323-qlld" src="https://github.com/user-attachments/assets/40b5f385-3a37-4706-81f9-ae50655ec47e" />
