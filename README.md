@@ -503,7 +503,7 @@ Denna uppgiften var lite misslyckad då vi i efterhand insåg att det "primtalet
 
 Men tanken var iallafall att man skulle lösa uppgiften enligt följande logik:
 
-Vi har fått en fil med en publik nyckel: 506395958. Tittar vi på den krypterade datan ser vi par med nummer. Kollar vi på Wikipedia över asymmetrisk kryptering kan vi hitta ElGamal-kryptering vilket stämmer väl överenes med vår chiffertext i formatet (c1, c2).
+Vi har fått en fil med en publik nyckel: 506395958. Tittar vi på den krypterade datan ser vi par med nummer. Kollar vi på Wikipedia över asymmetrisk kryptering kan vi hitta ElGamal-kryptering vilket stämmer väl överens med vår chiffertext i formatet (c1, c2).
 
 <img width="793" alt="SCR-20250322-qins" src="https://github.com/user-attachments/assets/7ab8896c-d721-4ef1-96c4-dacd5cb80501" />
 
@@ -511,19 +511,31 @@ Vi har fått en fil med en publik nyckel: 506395958. Tittar vi på den krypterad
 
 <img width="749" alt="SCR-20250323-lacg" src="https://github.com/user-attachments/assets/fc7f30df-8928-4eb7-8df0-09307507df92" />
 
-ElGamal är en asymmetrisk krypteringsalgoritm som använder en publik och en privat nyckel. ElGamal genererar nycklar genom det diskreta logaritmproblemet. En säker krypteringsalgoritm som gör att angriparen inte kan beräkna den privata nyckeln OM allt är gjort på rätt sätt. 
+ElGamal är en asymmetrisk krypteringsalgoritm som använder en publik och en privat nyckel. ElGamal genererar nycklar genom det diskreta logaritmproblemet. En säker krypteringsalgoritm som gör att angriparen inte kan beräkna den privata nyckeln OM allt är gjort på rätt sätt. Ett problem är om primtalet är för litet.
 
-Ett problem är om primtalet är för litet, I detta fallet kan vi se i Ghidra i funktionen "eg_enc" att det är alldeles för litet, endast 30-bit. Då kan vi räkna ut den privata nyckeln genom en matematisk attack. Då vi vet generatorn "2", Primtalet "1073741847" och den publika nyckeln "506395958"
+Ett problem är om primtalet är för litet, I detta fallet kan vi Om vi öppnar upp enc.exe i Ghidra så hittar vi funktionen "eg_enc". 
+
+"mod_exp" i C likt "pow" i Python tar 3 argument (Bas, exponent, Modulo)
+
+mod_exp här följer ElGamals:
+
+c1 = g^k (mod p)
 
 <img width="1273" alt="SCR-20250322-qiul" src="https://github.com/user-attachments/assets/46aac0a6-77d8-4a87-ac4b-9a196c509c3b" />
 
+Då kan vi lista ut at generatorn g = 2, p = 107374184. Vi ser också att "primtalet" är alldelser för litet, endast 30-bit, det måste vara mycket större. Då vi har vi generatorn, primtalet och den publika nyckeln. Nu kan vi räkna ut den privata nyckeln genom en matematisk attack. För att knäcka Diskreta logaritmproblemet kan vi använda "BSGS-algoritmen". 
+
+<img width="1252" alt="SCR-20250323-tgqm" src="https://github.com/user-attachments/assets/04040a01-0bb0-49d0-898a-02bd8f81c4b2" />
+
+Följande python-script implementerar BSGS-algoritmen (Går också att brute forcea men tar något längre tid):
+
 <img width="793" alt="SCR-20250323-krbj" src="https://github.com/user-attachments/assets/4099a397-442b-4949-80de-4b135e520d36" />
 
-Detta tar cirka 5-15 minuter beroende på datorns prestanda:
+Detta uppskattar jag tar cirka 3-10 minuter beroende på datorns prestanda:
 
 <img width="575" alt="SCR-20250323-kvvg" src="https://github.com/user-attachments/assets/8a5f828e-c7ac-4517-8431-51f4e752c3e6" />
 
-`Svar: 177370085 eller 713906975`
+`Svar: 177370085`
 
 ---
 
