@@ -231,10 +231,9 @@ Följer vi loggarna kort efter inloggningen ser vi att 40 sekunder senare 09:25:
 
 Man kan läsa om detta på Microsofts hemsida: https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4720
 
-<img width="1173" alt="SCR-20250323-lmbu" src="https://github.com/user-attachments/assets/6fcf40a6-75df-4258-88af-3fca47b34bb8" />
+Sidan på MITRE ATT&CK för subtekniken:
 
-<img width="1167" alt="SCR-20250323-lmen" src="https://github.com/user-attachments/assets/a5ca5315-c993-4e51-8b17-419e58d18430" />
-
+<img width="1261" alt="SCR-20250323-qlld" src="https://github.com/user-attachments/assets/40b5f385-3a37-4706-81f9-ae50655ec47e" />
 
 `Svar: T1136.001`
 
