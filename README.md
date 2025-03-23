@@ -135,8 +135,6 @@ Vi ser att de ip-addresser som hade öppna portar va 192.168.177.129, 192.168.17
 
 <img width="1390" alt="SCR-20250322-oivr" src="https://github.com/user-attachments/assets/a4485f28-4f2d-47fd-b001-b805798713f7" />
 
-<img width="1480" alt="SCR-20250322-ojfd" src="https://github.com/user-attachments/assets/eaf5dfdf-4dbb-4371-a0c9-2db7b700938f" />
-
 `Svar: 21`
 
 ---
