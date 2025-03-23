@@ -216,6 +216,8 @@ Stoppar vi in datan i Cyberchef kan vi misstänka att datan är krypterad:
 
 Vi kan försöka brute-forcea olika typer av vanliga krypteringsmetoder, men vi kan också försöka luska i minnesdumpen och se om vi kan hitta något där.
 
+Vi har tidigare försökt få ut filen "ConsoleHost_history.txt" för att se powershell-kommandon men den filen verkar inte logga så det går inte..
 
+Men om vi istället bara kör `strings` och använder `grep` för "facebook.com" får vi upp lite intressanta grejer: 
 
 
