@@ -15,7 +15,9 @@ Genom att titta på "IPv4 statistics" ser vi att ip-adresser på subnätet "192.
 
 <img width="1501" alt="SCR-20250322-noff" src="https://github.com/user-attachments/assets/ca3684ac-77c8-464d-8f36-8bbdf3ca8941" />
 
-Tittar vi i trafiken ser vi att det sker massa trafik udda trafik från "192.168.177.141" bland annat massa arp-request, misslyckade tcp-anslutningar och sen en uppkoppling mot 192.168.177.155 på port 4444. Port 4444 är en klassisk "lyssnarport" "Metasploit framework" och Meterpreter.
+Tittar vi initial på trafiken ser vi att det sker massa trafik udda trafik från "192.168.177.141" bland annat massa arp-request, misslyckade tcp-anslutningar och sen en uppkoppling mot 192.168.177.155 på port 4444 vilket är misstänkt. Port 4444 är en bland annat en klassisk "lyssnarport" för "Metasploit framework" och Meterpreter. 
+
+https://www.cbtnuggets.com/common-ports/what-is-port-4444
 
 Vi kan då räkna ut ganska snabbt att ip-adressen som angriparen använde sig av initialt var "192.168.177.141"
 
@@ -29,7 +31,7 @@ Fråga: Vilken IPv4-adress hade FTP-servern?
 
 *Kategori: Adresser*,  *Poäng: 100*
 
-Vi vet ju från "scenario.txt" att filservern är drabbad, i och med anslutningen från 192.168.177.141 till 192.168.177.155 kan vi ganska snabbt lista ut att det är filservern.
+Vi vet från "scenario.txt" att filservern är drabbad, i och med anslutningen från 192.168.177.141 till 192.168.177.155 kan vi ganska snabbt lista ut att det är filservern.
 
 Dessutom använder ftp port 21. Filtrerar vi på lyckade anslutningar på port 21 ser vi endast en adress: "192.168.177.155" vilket innebär att den porten bara är öppen på den ip-adressen. Ännu en indikation på att det är filservern.
 
@@ -93,7 +95,7 @@ Fråga: Vad var den absolut första tekniken ur MITRE ATT&CK som angriparen anv�
 
 *Kategori: MITRE ATT&CK*,  *Poäng: 100*
 
-Vi ser att det första gör angriparen (192.168.177.141) gör på nätverket är att köra massa arp-request. Udda trafik som troligtvis är för att få en bild av vilka uppkopplade enheter som finns INTERNT på nätverket. En teknik som kallas "Remote System Discovery" ur taktiken Discovery. INTE att förväxla med tekniken "active scanning" som är en del av taktiken Reconnaissance vilket det inte rör sig om här då vi är inne internt på nätverket.
+Vi ser att det första gör angriparen (192.168.177.141) gör på nätverket är att köra massa arp-request. Udda trafik som troligtvis är för att få en bild av vilka uppkopplade enheter som finns INTERNT på nätverket. En teknik som kallas "Remote System Discovery" ur taktiken Discovery. INTE att förväxla med tekniken "active scanning" som är en del av taktiken Reconnaissance vilket det inte rör sig om här då vi är inne internt på nätverket och redan har etableras access.
 
 <img width="1390" alt="SCR-20250322-odlu" src="https://github.com/user-attachments/assets/f1cf173c-4127-4647-a5cc-4d104f729f15" />
 
@@ -111,7 +113,7 @@ Fråga: Omedelbart (cirka 5-6 sekunder) efter tekniken som användes i utmaninge
 
 *Kategori: MITRE ATT&CK*,  *Poäng: 100*
 
-Vi ser att omedelbart några sekunder efter första tekniken försöker angriparen (192.168.177.141) att etablera massa tcp-anslutningar till de ip-adresser som har svarat på arp-requesten (bland annnat filservern och domänkontrollanten) på massa olika portar. En så kallad "portskanning" vilket är tekniken "Network Service Discovery" ur MITRE ATTACK.
+Vi ser att omedelbart några sekunder efter första tekniken försöker angriparen (192.168.177.141) att etablera massa tcp-anslutningar till de ip-adresser som har svarat på arp-requesten (bland annnat filservern och domänkontrollanten) på massa olika portar. En så kallad "portskanning" vilket är tekniken "Network Service Discovery" ur MITRE ATT&CK.
 
 <img width="1390" alt="SCR-20250322-oivr" src="https://github.com/user-attachments/assets/a4485f28-4f2d-47fd-b001-b805798713f7" />
 
@@ -131,11 +133,11 @@ Fråga: Hur många öppna portar hittade angriparen totalt på Gentle Dentals n�
 
 Genom att filtrera på angriparens ip-adress och de lyckade anslutningar (syn,ack) kan vi se de portarna som var öppna. Till exempel port 88 (kerberos), 80 (http) osv.
 
-Vi ser att de ip-addresser som hade öppna portar va 192.168.177.129, 192.168.177.138, 192.168.177.139 och 192.168.177.155.
+Vi ser att de ip-adresser som hade öppna portar va 192.168.177.129, 192.168.177.138, 192.168.177.139 och 192.168.177.155.
 
 <img width="1391" alt="SCR-20250322-taak" src="https://github.com/user-attachments/assets/12be263e-615f-4d3b-8533-64e793046fcb" />
 
-Filtrerar vi sedan på de fyra ip-addresser genom att lägga till "ip.src" på filret för respektive ip-address kan vi se vilka öppna portar som angriparen hittade på respektive ip. Summerar vi dessa och tar bort dubbletter får vi antalet totalt öppna portar som hittades. 10 + 5 + 3 + 3 = 21
+Filtrerar vi sedan på de fyra ip-adresser genom att lägga till "ip.src" på filret för respektive ip-adress kan vi se vilka öppna portar som angriparen hittade på respektive ip. Summerar vi dessa och tar bort dubbletter får vi antalet totalt öppna portar som hittades. 10 + 5 + 3 + 3 = 21
 
 `Svar: 21`
 
@@ -275,7 +277,7 @@ Fråga: Vad hette den binära filen som angriparen laddade ner? Svara med namn o
 
 Svar för både Nedladdning 1.0 och Nedladdning 2.0 då de hänger lite ihop.
 
-IP-addressen 192.168.177.141 är en mini-dator med kali som vi listade ut i "Angriparens hostname". På en kalidator har man massa verktyg men nu när angriparen är inloggad på FTP-servern (192.168.177.155) kan man tänka sig att han vill ladda ner filer, verktyg och annat för att kunna utföra attacker.
+IP-addressen 192.168.177.141 är en mini-dator med kali som vi listade ut i "Angriparens hostname". På en Kali-dator har man massa verktyg men nu när angriparen är inloggad på FTP-servern (192.168.177.155) kan man tänka sig att han vill ladda ner filer, verktyg och annat för att kunna utföra attacker.
  
 Vi hittar ingen http trafik i nätverkstrafiken så antingen har angriparen en server med "fejkad" https eller så laddar angriparen ner från internet från någon domän.
 
@@ -411,7 +413,7 @@ Fråga: Angriparen misstänkts ha stulit känslig information om en patient. Vad
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
-Vi kan se massa dns-paket till ip-addressen "10.245.122.37" i nätverkstrafiken som indikerar "DNS tunneling". En teknik som angripare ofta använder sig av för att "maskerat" skicka data i query-fältet, för till exempel exfiltration av data eller för kommunikation med en C2-server. I detta fallet ser vi långa strängar med vad som ser ut som hex data med domänen facebook.com. Till exempel: 0.383d06170e7c392808262a3d0f223c2520111352.facebook.com
+Vi kan se massa dns-trafik till ip-adressen "10.245.122.37" i nätverkstrafiken som indikerar "DNS tunneling". En teknik som angripare ofta använder sig av för att "maskerat" skicka data i query-fältet, för till exempel exfiltration av data eller för kommunikation med en C2-server. I detta fallet ser vi långa strängar med vad som ser ut som hex data med domänen facebook.com. Till exempel: 0.383d06170e7c392808262a3d0f223c2520111352.facebook.com
 
 <img width="1375" alt="SCR-20250322-ptpl" src="https://github.com/user-attachments/assets/e1688689-ffcd-4bd5-8792-53470c76bcf1" />
 
