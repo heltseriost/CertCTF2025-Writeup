@@ -228,6 +228,12 @@ Men om vi istället bara kör `strings` och använder `grep` för "facebook.com"
 
 ![SCR-20250323-bieg](https://github.com/user-attachments/assets/0e856ea1-739c-4093-b856-606aa42b0332)
 
-Vi kan lista ut att scriptet gör följande
+Vi kan lista ut att scriptet gör följande:
+
+1. Läser en fil (`C:\Shared\Patients\gd_patient_04.rtf`).
+2. XOR-krypterar filens data med en nyckel (`$k` som är `CatchMeIfUCanLOL` i bytes).
+3. Omvandlar krypterad data till en hex-sträng.
+4. Skapar subdomäner baserade på hex-strängen (`facebook.com`).
+5. Utför DNS-uppslag på varje subdomän för att exfiltrera data.
 
 
