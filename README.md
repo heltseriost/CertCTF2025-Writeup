@@ -136,7 +136,7 @@ Fråga: Hur många öppna portar hittade angriparen totalt på Gentle Dentals n�
 
 Genom att filtrera på angriparens ip-adress och de lyckade anslutningar (syn,ack) kan vi se de portarna som var öppna. Till exempel port 88 (kerberos), 80 (http) osv.
 
-Vi ser att de ip-adresser som hade öppna portar va 192.168.177.129, 192.168.177.138, 192.168.177.139 och 192.168.177.155.
+Vi ser att de ip-adresser som hade öppna portar var 192.168.177.129, 192.168.177.138, 192.168.177.139 och 192.168.177.155.
 
 <img width="1391" alt="SCR-20250322-taak" src="https://github.com/user-attachments/assets/12be263e-615f-4d3b-8533-64e793046fcb" />
 
