@@ -5,6 +5,8 @@ Följer tidslinjen i attacken.
 
 ### ***Angriparens IPv4-adress***
 
+Fråga: Vilken IPv4-adress använde angriparen sig av initialt i attacken?
+
 *Kategori: Adresser*,  *Poäng: 100*
 
 Vi vet från "scenario.txt" att angriparen har kopplat in en mini-dator på nätverket där skrivaren egentligen sitter, möjligtvis på samma subnät.
@@ -23,6 +25,8 @@ Vi kan då räkna ut ganska snabbt att ip-adressen som angriparen använde sig a
 
 ### ***FTP-serverns IPv4-adress***
 
+Fråga: Vilken IPv4-adress hade FTP-servern?
+
 *Kategori: Adresser*,  *Poäng: 100*
 
 Vi vet ju från "scenario.txt" att filservern är drabbad, i och med anslutningen från 192.168.177.141 till 192.168.177.155 kan vi ganska snabbt lista ut att det är filservern.
@@ -36,6 +40,8 @@ Dessutom använder ftp port 21. Filtrerar vi på lyckade anslutningar på port 2
 ---
 
 ### ***Domänkontrollantens IPv4-adress***
+
+Fråga: Vilken IPv4-adress hade domänkontrollanten?
 
 *Kategori: Adresser*,  *Poäng: 100*
 
@@ -53,7 +59,7 @@ filtrerar vi på adressen kan vi dessutom bekräfta detta ännu mer med namnet "
 
 ### ***Angriparens hostname***
 
-*Kategori: Adresser*,  *Poäng: 100*
+Fråga: Vad var angriparens hostname?
 
 Vi vet att angriparen är 192.168.177.141. filtrerar vi på dhcp och 192.168.177.141 får vi följande:
 
@@ -69,9 +75,11 @@ Klickar vi på request-paketet kan vi se hostname för 192.168.177.141:
 
 ### ***Tidszon***
 
+Fråga: Vilken lokal tid (svensk tid) anlände sista paketet i inspelningen av nätverkstrafiken? Avrunda neråt till hel sekund!
+
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
-Har man wireshark inställt på svensk tid (dvs. UTC) behöver man inte fundera så mycket, men har man inte det kan man också klicka på sista paketet och då ser vi tiden svenskt tid (UTC). Avrundar vi neråt till helsekund får vi svaret:
+Har man wireshark inställt på svensk tid (dvs. CET) behöver man inte fundera så mycket, men har man inte det kan man också klicka på sista paketet och då ser vi tiden svenskt tid (CET). Avrundar vi neråt till helsekund får vi svaret:
 
 <img width="1326" alt="SCR-20250322-obiy" src="https://github.com/user-attachments/assets/1aef3bc4-071f-4448-9401-5449a53a039f" />
 
@@ -81,9 +89,11 @@ Har man wireshark inställt på svensk tid (dvs. UTC) behöver man inte fundera 
 
 ### ***Initial teknik***
 
+Fråga: Vad var den absolut första tekniken ur MITRE ATT&CK som angriparen använde sig av på nätverket? Svara med ID-numret.
+
 *Kategori: MITRE ATT&CK*,  *Poäng: 100*
 
-Vi ser att det första gör angriparen (192.168.177.141) gör på nätverket är att köra massa arp-request. Udda trafik som troligtvis är för att få en bild av vilka uppkopplade enheter som finns INTERNT på nätverket. En teknik som kallas "Remote System Discovery" ur taktiken Discovery. INTE att förväxla med tekniken "active scanning" som är en del av taktiken Reconnaiscance vilket det inte rör sig om här då vi är inne internt på nätverket.
+Vi ser att det första gör angriparen (192.168.177.141) gör på nätverket är att köra massa arp-request. Udda trafik som troligtvis är för att få en bild av vilka uppkopplade enheter som finns INTERNT på nätverket. En teknik som kallas "Remote System Discovery" ur taktiken Discovery. INTE att förväxla med tekniken "active scanning" som är en del av taktiken Reconnaissance vilket det inte rör sig om här då vi är inne internt på nätverket.
 
 <img width="1390" alt="SCR-20250322-odlu" src="https://github.com/user-attachments/assets/f1cf173c-4127-4647-a5cc-4d104f729f15" />
 
@@ -96,6 +106,8 @@ Sidan för MITRE ATT&CK-tekniken:
 ---
 
 ### ***Utökad teknik***
+
+Fråga: Omedelbart (cirka 5-6 sekunder) efter tekniken som användes i utmaningen Initial teknik använder angriparen en annan teknik ur MITRE ATT&CK. Vilken teknik var det?
 
 *Kategori: MITRE ATT&CK*,  *Poäng: 100*
 
@@ -113,11 +125,13 @@ Sidan för MITRE ATT&CK-tekniken:
 
 ### ***Resultat av skanning***
 
+Fråga: Hur många öppna portar hittade angriparen totalt på Gentle Dentals nätverk med sin skanning från utmaningen Utökad teknik?
+
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
 Genom att filtrera på angriparens ip-adress och de lyckade anslutningar (syn,ack) kan vi se de portarna som var öppna. Till exempel port 88 (kerberos), 80 (http) osv.
 
-Vi ser att de ip-addresser som hade öppna portar va 192.168.177.129, 192.168.177.138, 192.168.177.139 och 192.168.177.155. Filtrerar vi sedan på de fyra ip-addressen med "ip.src" kan vi se vilka öppna portar som angriparen hittade på varje ip. Summerar vi dessa och tar bort dubbletter får vi antalet totalt öppna portar som hittades. 10 + 5 + 3 + 3 = 21
+Vi ser att de ip-addresser som hade öppna portar va 192.168.177.129, 192.168.177.138, 192.168.177.139 och 192.168.177.155. Filtrerar vi sedan på de fyra ip-addresser med "ip.src" kan vi se vilka öppna portar som angriparen hittade på varje ip. Summerar vi dessa och tar bort dubbletter får vi antalet totalt öppna portar som hittades. 10 + 5 + 3 + 3 = 21
 
 <img width="1390" alt="SCR-20250322-oivr" src="https://github.com/user-attachments/assets/a4485f28-4f2d-47fd-b001-b805798713f7" />
 
@@ -128,6 +142,8 @@ Vi ser att de ip-addresser som hade öppna portar va 192.168.177.129, 192.168.17
 ---
 
 ### ***Autentiseringsuppgifter 1.0***
+
+Fråga: Angriparen lyckades få tag i autentiseringsuppgifter. Vilken subteknik ur MITRE ATT&CK användes? Svara med ID-numret för subtekniken.
 
 *Kategori: MITRE ATT&CK*,  *Poäng: 100*
 
@@ -149,6 +165,8 @@ Sidan för MITRE ATT&CK-subtekniken:
 
 ### ***Autentiseringsuppgifter 2.0***
 
+Fråga: I vilket paket i nätverkstrafiken fick angriparen tag i autentiseringsuppgifterna från utmaningen "Autentiseringsuppgifter 1.0"?
+
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
 Man kan se att autentiseringsuppgifterna (ticket) skickas krypterat i en "AS-REP".
@@ -160,6 +178,8 @@ Man kan se att autentiseringsuppgifterna (ticket) skickas krypterat i en "AS-REP
 ---
 
 ### ***Lösenord***
+
+Fråga: Vilket lösenord använde angriparen för att logga in i utmaningen Obehörig inloggning
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
@@ -177,6 +197,8 @@ Vi kan använda verktyg som hashcat eller john för knäcka hashen men vi kan oc
 
 ### ***Obehörig inloggning***
 
+Fråga: Angriparen lyckades logga in på en av datorerna på något sätt. Vilket Logon ID tillhör den obehöriga inloggningen?
+
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
 Inloggningar kan vi se i loggarna, i Security.evtx-loggen. Det ger event-ID: 4624
@@ -189,7 +211,7 @@ Vi kan bekräfta detta också genom att jämföra med nätverkstrafiken:
 
 <img width="1373" alt="SCR-20250322-nlvv" src="https://github.com/user-attachments/assets/309e1b93-d7ff-4ab0-866a-d98a52172ef6" />
 
-Här ifrån vet vi nu att angriparen har lyckats ta sig in på filservern och är nu inloggad på den den datorn.
+Här ifrån vet vi nu att angriparen har lyckats ta sig in på filservern och är nu inloggad på den datorn.
 
 `Svar: 0xffcab eller 0x00000000000ffcab`
 
@@ -197,7 +219,9 @@ Här ifrån vet vi nu att angriparen har lyckats ta sig in på filservern och ä
 
 ### ***Fortsatt åtkomst***
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+Fråga: Persistence är en taktik som angripare ofta använder för att försöka bevara sin åtkomst. Vilken första persistence subteknik ur MITRE ATT&CK använde sig angriparen av?
+
+*Kategori: MITRE ATT&CK*,  *Poäng: 100*
 
 Angriparen vill bevara sin åtkomst på något sätt vilket tyder på att han är inloggad på en annan dator (filserverns dator). Vi vet att angriparen loggade in på FTP-servern (192.168.177.155) från 192.168.177.141 ungefär kl 09:24:59 (svensk tid). 
 
@@ -218,9 +242,11 @@ Man kan läsa om detta på Microsofts hemsida: https://learn.microsoft.com/en-us
 
 ### ***Windows Defender***
 
+Fråga: Vilken MpPreference parameter ändrade angriparen för Windows Defender Antivirus?
+
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
-Vi vet att det rör Windows Defender då kan vi kolla på loggarna för Windows Defender. 09:26:22 ändrar angriparen så att Windows Defender Antivirus inte scannar sökvägarna C:\Windows\System32\Temp och C:\Windows. Antagligen för att undvika eventuella skadliga filer som är tänkta att placeras där.
+Vi vet att det rör Windows Defender då kan vi kolla på loggarna för Windows Defender. 09:26:22 (svensk tid) ändrar angriparen så att Windows Defender Antivirus inte scannar sökvägarna C:\Windows\System32\Temp och C:\Windows. Antagligen för att undvika eventuella skadliga filer som är tänkta att placeras där.
 
 <img width="852" alt="excludepath1" src="https://github.com/user-attachments/assets/de2a2a92-0521-4f71-b2e2-37b6cc03c5e2" />
 
@@ -238,9 +264,19 @@ https://www.huntress.com/blog/you-can-run-but-you-cant-hide-defender-exclusions
 
 ### ***Nedladdning 1.0***
 
+Fråga: Angriparen lyckades ladda ner filer. Hur många paket innehöll den fullständiga strömmen där angriparen laddade ner filer?
+
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
-IP-addressen 192.168.177.141 är ju en mini-dator med kali som vi listade ut i "Angriparens hostname". På en kalidator har man ju massa verktyg men nu när angriparen är inloggad på FTP-servern (192.168.177.155) kan man tänka sig att han vill ladda ner filer, verktyg och annat för att kunna utföra attacker.
+### ***Nedladdning 2.0***
+
+Fråga: Vad hette den binära filen som angriparen laddade ner? Svara med namn och filändelse.
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
+Svar för både Nedladdning 1.0 och Nedladdning 2.0 då de hänger lite ihop.
+
+IP-addressen 192.168.177.141 är en mini-dator med kali som vi listade ut i "Angriparens hostname". På en kalidator har man massa verktyg men nu när angriparen är inloggad på FTP-servern (192.168.177.155) kan man tänka sig att han vill ladda ner filer, verktyg och annat för att kunna utföra attacker.
  
 Vi hittar ingen http trafik i nätverkstrafiken så antingen har angriparen en server med "fejkad" https eller så laddar angriparen ner från internet från någon domän.
 
@@ -248,7 +284,9 @@ filtrerar vi på dns för att se domäner i trafiken får vi upp lite olika blan
 
 Vi får fram två tcp-strömmar med github genom filtret "frame contains github"
 
-Första strömmen "1997" med api.github.com innehåller trafik för interaktionen:
+<img width="1388" alt="SCR-20250323-mtct" src="https://github.com/user-attachments/assets/defbd94b-2a8b-4664-947f-bec11ae1b8ed" />
+
+Första strömmen "1997" med api.github.com innehåller trafik för api-interaktionen:
 
 <img width="1388" alt="SCR-20250323-mtjn" src="https://github.com/user-attachments/assets/61ddd6ce-c091-4173-ab7e-bbc2aea7cf24" />
 
@@ -257,14 +295,6 @@ medan strömmen "1998" verkar innehålla en stor mängd data som laddas ner, str
 <img width="1387" alt="SCR-20250323-molq" src="https://github.com/user-attachments/assets/ef04dab1-9305-464a-b368-68ba8ff1fca3" />
 
 <img width="132" alt="SCR-20250323-mopm" src="https://github.com/user-attachments/assets/fa9033cc-2c62-45bd-8d81-e5743d2266e4" />
-
-`Svar: 100`
-
----
-
-### ***Nedladdning 2.0***
-
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
 Vi vet nu att angriparen laddar ner filer från "raw.githubusercontent.com".
 
@@ -276,19 +306,32 @@ Om vi däremot kör `strings` på minnesdumpen eller öppnar den i en hex-läsar
 
 <img width="1494" alt="SCR-20250323-myyq" src="https://github.com/user-attachments/assets/c0dff97c-45e1-407c-8f46-303cb35c7609" />
 
-Det laddas ner en fil från en privat Github-repo med en api-token. Filen verkar heta cscapi.dll och är 93959 bytes. Vilket verkar stämma ganska väl överens med datamängden som vi såg tidigare i tcp-strömmen "1998" i utmaningen Nedladdning 1.0. Kollar vi upp Githubsidan får vi detta:
+Det laddas ner en fil från en privat Github-repo med en api-token. Filen verkar heta cscapi.dll och är 93959 bytes. Vilket verkar stämma ganska väl överens med datamängden som vi såg tidigare i tcp-strömmen "1998". Kollar vi upp Githubsidan får vi detta:
 
 <img width="1318" alt="SCR-20250322-prrh" src="https://github.com/user-attachments/assets/b856af3a-df98-460e-9e2a-f5c182067122" />
 
-`Svar: cscapi.dll`
+`Svar Nedladdning 1.0: 100`
+`Svar Nedladdning 2.0: cscapi.dll`
 
 ---
 
 ### ***Utnyttjande 1.0***
+
+Fråga: Vilken subteknik ur MITRE ATT&CK användes av angriparen för att utnyttja den binära filen som laddades ner i utmaningen Nedladdning 2.0? Svara med ID-numret
+
 *Kategori: MITRE ATT&CK*,  *Poäng: 100*
+
 ### ***Utnyttjande 2.0***
+
+Fråga: Vilket process-id hade den process som utnyttjade angriparens binära fil från utmaningen Untyttjande 1.0?
+
+Format för svaret: 1234
+
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+
 ### ***Registerändring***
+
+Fråga: Det finns ett Registernyckelvärde som angriparen ändrade till "0" för att kunna UTNYTTJA den nedladdade binära filen. Vad var namnet? Svara med namnet, exkludera sökvägen.
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
 Här kommer svar för Utnyttjande 1.0, Utnyttjande 2.0 och Registerändring!
@@ -327,6 +370,8 @@ Denna teknik kallas "DLL Search Order Hijacking". ID-nummer för MITRE ATT&CK-su
 
 ### ***Binära filens meddelande***
 
+Fråga: Den binära filen i utmaningen Nedladdning 2.0 innehöll ett meddelande. Återge detta meddelande
+
 *Kategori: Utredning av IT-attacken*,  *Poäng: 100*
 
 Vi kan carva ut den binära filen "cscapi.dll" med volatility3 och analysera den med reversing-verktyg eller köra den i virtuell Windowsmiljö med rundll32.exe om vi vill. Jag har mac så jag kör statisk analys med radare2 för enkelhetens skull.
@@ -343,24 +388,11 @@ f0r_3th1c4l_purp0535_th15_d03s_n0t_c0nt41n_4n_3ncrypt3d_p4yl04d_f0r_4_b4ckd00r
 
 `Svar: f0r_3th1c4l_purp0535_th15_d03s_n0t_c0nt41n_4n_3ncrypt3d_p4yl04d_f0r_4_b4ckd00r`
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 
 ### ***Angriparens server***
+
+Fråga: Vilken IPv4-adress hade angriparens egna server?
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 200*
 
@@ -373,6 +405,8 @@ Vi kan se massa dns-paket till ip-addressen "10.245.122.37" i nätverkstrafiken 
 ---
 
 ### ***Dataläckan***
+
+Fråga: Angriparen misstänkts ha stulit känslig information om en patient. Vad heter denna personen? Svara med för-och efternamn.
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
@@ -437,6 +471,8 @@ Om vi sedan lägger in den hex-datan i en fil har vi återskapat filen och kan s
 ---
 
 ### ***Fobi***
+
+Fråga: Vilket djur fruktar personen från utmaningen Dataläckan? Svara i plural.
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
