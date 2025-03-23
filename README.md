@@ -339,7 +339,7 @@ Här kommer svar för Utnyttjande 1.0, Utnyttjande 2.0 och Registerändring!
 
 Dessa tre utmaningar hör lite ihop.
 
-Vi vet nu att den binära filen är "cscapi.dll", det är en vanlig fil legitim dll som är sårbar att kapa för DLL Hijacking bland annat genom explorer.exe. En snabb googling visar detta:
+Vi vet nu att den binära filen är "cscapi.dll", det är en vanlig legitim dll i Windows som är sårbar att kapa för DLL Hijacking bland annat genom explorer.exe. En snabb googling visar detta:
 
 <img width="1318" alt="SCR-20250322-prrh" src="https://github.com/user-attachments/assets/502b5554-ff09-4fe0-9dab-aff4597d56ba" />
 
