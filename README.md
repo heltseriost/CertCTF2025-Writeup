@@ -275,3 +275,5 @@ Tittar vi i patientjournalerna för Håkan Kerberosqvist ser vi att han lider av
 ![SCR-20250322-pxvy](https://github.com/user-attachments/assets/ffba74e4-3892-43b1-bfbb-402750414f79)
 
 ![SCR-20250322-pybi](https://github.com/user-attachments/assets/6762b54d-b77b-459c-adc9-77084fde04e7)
+
+`Svar: Ankor`
