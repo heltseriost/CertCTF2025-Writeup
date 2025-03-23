@@ -186,7 +186,7 @@ Man kan se att autentiseringsuppgifterna (ticket) skickas krypterat i en "AS-REP
 
 Fråga: Vilket lösenord använde angriparen för att logga in i utmaningen Obehörig inloggning
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 100*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 451*
 
 Vi kan dumpa ut hashar med plugin "windows.hashdump" i volatility3 på minnesdumpen. Genom detta får vi ut nt-hashen för admin-kontot dvs "FTPService" som är: 1be448211e59b6428d01d6fe9dfd8f91
 
