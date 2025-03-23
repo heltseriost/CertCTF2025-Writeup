@@ -266,6 +266,8 @@ Om vi sedan lägger in den hex-datan i en fil har vi återskapat filen och kan s
 
 `Svar: Håkan Kerberosqvist`
 
+---
+
 ### ***Fobi***
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 500*
@@ -277,3 +279,52 @@ Tittar vi i patientjournalerna för Håkan Kerberosqvist ser vi att han lider av
 ![SCR-20250322-pybi](https://github.com/user-attachments/assets/6762b54d-b77b-459c-adc9-77084fde04e7)
 
 `Svar: Ankor`
+
+---
+
+### ***Ransomware 1.0 - Nyckeln***
+
+*Kategori: Utpressning*,  *Poäng: 500*
+
+Denna uppgiften var lite misslyckad då vi i efterhand insåg att det "primtalet" som vi valde visade sig inte vara ett primtal då det är delbart med t.ex 3, oops.. Vilket gör att krypteringen går att knäcka ganska enkelt och det finns flera möjliga privata nycklar.
+
+Men tanken var iallafall att man skulle lösa uppgiften enligt följande logik:
+
+Vi har fått en fil med en publik nyckel: 506395958. Tittar vi på den krypterade datan ser vi par med nummer. Kollar vi på Wikipedia över asymmetrisk kryptering kan vi hitta ElGamal-kryptering vilket stämmer väl överenes med vår chiffertext i formatet (c1, c2).
+
+<img width="793" alt="SCR-20250322-qins" src="https://github.com/user-attachments/assets/7ab8896c-d721-4ef1-96c4-dacd5cb80501" />
+
+<img width="1207" alt="SCR-20250323-kzwu" src="https://github.com/user-attachments/assets/2109c6ba-f05b-41be-9c2d-f78dcfc138f0" />
+
+<img width="749" alt="SCR-20250323-lacg" src="https://github.com/user-attachments/assets/fc7f30df-8928-4eb7-8df0-09307507df92" />
+
+ElGamal är en asymmetrisk krypteringsalgoritm som använder en publik och en privat nyckel. ElGamal genererar nycklar genom det diskreta logaritmproblemet. En säker krypteringsalgoritm som gör att angriparen inte kan beräkna den privata nyckeln OM allt är gjort på rätt sätt. 
+
+Ett problem är om primtalet är för litet, I detta fallet kan vi se i Ghidra i funktionen "eg_enc" att det är alldeles för litet, endast 30-bit. Då kan vi räkna ut den privata nyckeln genom en matematisk attack. Då vi vet generatorn "2", Primtalet "1073741847" och den publika nyckeln "506395958"
+
+<img width="1273" alt="SCR-20250322-qiul" src="https://github.com/user-attachments/assets/46aac0a6-77d8-4a87-ac4b-9a196c509c3b" />
+
+<img width="793" alt="SCR-20250323-krbj" src="https://github.com/user-attachments/assets/4099a397-442b-4949-80de-4b135e520d36" />
+
+Detta tar cirka 5-15 minuter beroende på datorns prestanda:
+
+<img width="575" alt="SCR-20250323-kvvg" src="https://github.com/user-attachments/assets/8a5f828e-c7ac-4517-8431-51f4e752c3e6" />
+
+`Svar: 177370085 eller 713906975`
+
+---
+
+
+### ***Ransomware 2.0 - Textsträngen***
+
+*Kategori: Utpressning*,  *Poäng: 500*
+
+Med den privata nyckeln som vi hittat: 177370085 kan vi sedan knäcka krypteringen och få ut den känsliga datan med följande Python-script:
+
+<img width="1218" alt="SCR-20250322-rhsb" src="https://github.com/user-attachments/assets/1656ec0e-d249-47f8-aa91-afa2925a8ace" />
+
+<img width="806" alt="SCR-20250322-rjss" src="https://github.com/user-attachments/assets/289983ce-a6bf-4a7f-a6cb-e6aa17f3e174" />
+
+`Svar: Pelle_Svanslos_Har_Svans`
+
+---
