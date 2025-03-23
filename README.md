@@ -404,7 +404,7 @@ Fråga: Angriparen misstänkts ha stulit känslig information om en patient. Vad
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
-Vi kan se massa dns-paket till ip-addressen "10.245.122.37" i nätverkstrafiken som indikerar "DNS tunneling". En teknik som angripare ofta använde sig av för att oupptäckt skicka data i query-fältet, för till exempel exfiltration eller för kommunikation med en C2-server. I detta fallet ser vi långa strängar med vad som ser ut som hex data med domänen facebook.com. Till exempel: 0.383d06170e7c392808262a3d0f223c2520111352.facebook.com
+Vi kan se massa dns-paket till ip-addressen "10.245.122.37" i nätverkstrafiken som indikerar "DNS tunneling". En teknik som angripare ofta använder sig av för att "maskerat" skicka data i query-fältet, för till exempel exfiltration av data eller för kommunikation med en C2-server. I detta fallet ser vi långa strängar med vad som ser ut som hex data med domänen facebook.com. Till exempel: 0.383d06170e7c392808262a3d0f223c2520111352.facebook.com
 
 <img width="1375" alt="SCR-20250322-ptpl" src="https://github.com/user-attachments/assets/e1688689-ffcd-4bd5-8792-53470c76bcf1" />
 
