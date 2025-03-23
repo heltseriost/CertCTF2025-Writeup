@@ -409,7 +409,7 @@ f0r_3th1c4l_purp0535_th15_d03s_n0t_c0nt41n_4n_3ncrypt3d_p4yl04d_f0r_4_b4ckd00r
 
 Fråga: Vilken IPv4-adress hade angriparens egna server?
 
-*Kategori: Utredning av IT-attacken*,  *Poäng: 490*
+*Kategori: Utredning av IT-attacken*,  *Poäng: 488*
 
 ### ***Dataläckan***
 
