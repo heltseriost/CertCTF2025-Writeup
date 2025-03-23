@@ -207,7 +207,7 @@ Här finns det betydligt bättre verktyg att analysera loggar om man har Windows
 
 <img width="672" alt="bild4" src="https://github.com/user-attachments/assets/bf9cdf5a-5401-421b-96df-b3cf1595a0ba" />
 
-Vi kan bekräfta detta också genom att jämföra med nätverkstrafiken:
+Vi kan bekräfta detta också genom att jämföra tiden med inloggningen som syns i nätverkstrafiken:
 
 <img width="1373" alt="SCR-20250322-nlvv" src="https://github.com/user-attachments/assets/309e1b93-d7ff-4ab0-866a-d98a52172ef6" />
 
