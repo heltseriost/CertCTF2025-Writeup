@@ -442,15 +442,15 @@ Vi kan lista ut att scriptet gör följande:
 
 1. Läser en fil (`C:\Shared\Patients\gd_patient_04.rtf`).
 2. XOR-krypterar filens data med en nyckel (`$k` som är `CatchMeIfUCanLOL` i bytes).
-3. Omvandlar krypterad data till en hex-sträng.
-4. Skapar subdomäner baserade på hex-strängen och facebook.com.
+3. Delar upp den krypterade hexdatan i chunks om 40.
+4. Skapar subdomäner baserade på chunksen och facebook.com.
 5. Utför DNS-uppslag på varje subdomän för att exfiltrera data.
 
-Vi försöker carva ut filen `C:\Shared\Patients\gd_patient_04.rtf` men den verkar vara överskriven..
+Vi försöker carva ut filen `C:\Shared\Patients\gd_patient_04.rtf` för att se vad den innehåller men den verkar vara överskriven..
 
 <img width="1406" alt="SCR-20250322-ppmo" src="https://github.com/user-attachments/assets/cd95efcb-c356-4a2c-b1cd-691a827cf0b9" />
 
-Då får vi helt enkelt återskapa den.
+Då får vi helt enkelt återskapa den!
 
 Vi börjar med att få ut alla querys som har "facebook.com" i sig då det är de som är intressanta. Vi kan använda `tshark` till det:
 
@@ -485,7 +485,7 @@ Fråga: Vilket djur fruktar personen från utmaningen Dataläckan? Svara i plura
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
-Tittar vi i patientjournalerna för Håkan Kerberosqvist ser vi att han lider av Anitidaefobi. En fobi som innebär att ankor stirrar på en.
+Tittar vi i patientjournalerna för Håkan Kerberosqvist ser vi att han lider av Anitidaefobi. En fobi som innebär en rädsla för att ankor tittar på en.
 
 ![SCR-20250322-pxvy](https://github.com/user-attachments/assets/ffba74e4-3892-43b1-bfbb-402750414f79)
 
