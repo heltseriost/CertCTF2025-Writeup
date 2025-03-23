@@ -187,3 +187,104 @@ Vi kan testa stoppa hashen i Crackstation för att se om det är ett tidigare l�
 <img width="1420" alt="SCR-20250322-oumg" src="https://github.com/user-attachments/assets/df88c20c-0e8f-4c58-8e1e-b19ea68b72e1" />
 
 `Svar: DentalSurgery528`.
+
+---
+
+### ***Angriparens server***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 200*
+
+Vi kan se massa dns-paket till ip-addressen "10.245.122.37" i nätverkstrafiken som indikerar "DNS tunneling". En teknik som angripare ofta använde sig av för att oupptäckt skicka data i query-fältet, för till exempel exfiltration eller för kommunikation med en C2-server. I detta fallet ser vi långa strängar med vad som ser ut som hex data med domänen facebook.com. Till exempel: 0.383d06170e7c392808262a3d0f223c2520111352.facebook.com
+
+<img width="1375" alt="SCR-20250322-ptpl" src="https://github.com/user-attachments/assets/e1688689-ffcd-4bd5-8792-53470c76bcf1" />
+
+`Svar: 10.245.122.37`.
+
+---
+
+### ***Dataläckan***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 500*
+
+SE WRITEUP PÅ "Angriparens server" OVAN!
+
+Stoppar vi in datan i Cyberchef kan vi misstänka att datan är krypterad:
+
+<img width="1236" alt="SCR-20250323-bbif" src="https://github.com/user-attachments/assets/7b81e732-6629-48a6-ac4e-69058fe514d6" />
+
+Vi kan försöka brute-forcea olika typer av vanliga krypteringsmetoder, men vi kan också försöka luska i minnesdumpen och se om vi kan hitta något där.
+
+Vi har tidigare försökt få ut filen "ConsoleHost_history.txt" för att se powershell-kommandon men den filen verkar inte logga så det går inte..
+
+Men om vi istället bara kör strings och använder grep för "facebook.com" får vi upp lite intressanta grejer: 
+
+<img width="1404" alt="SCR-20250323-bgwl" src="https://github.com/user-attachments/assets/1e1f52cd-e7ba-4e5b-96f1-ceaf8a780a0a" />
+
+Öppnar vi dessutom minnesdumpen i en hex-läsare och söker på texten "facebook.com" så kan vi få fram ett script som kör någon slags XOR-kryptering på filen gd_patient_04.rtf. 
+
+<img width="1500" alt="SCR-20250323-biby" src="https://github.com/user-attachments/assets/17418c93-b222-44d4-8822-e3dc2f74e229" />
+
+<img width="360" alt="SCR-20250323-bieg" src="https://github.com/user-attachments/assets/0e856ea1-739c-4093-b856-606aa42b0332" />
+
+Vi kan lista ut att scriptet gör följande:
+
+1.	Läser en fil (C:\Shared\Patients\gd_patient_04.rtf).
+2.	XOR-krypterar filens data med en nyckel ($k som är CatchMeIfUCanLOL i bytes).
+3.	Omvandlar krypterad data till en hex-sträng.
+4.	Skapar subdomäner baserade på hex-strängen (facebook.com).
+5.	Utför DNS-uppslag på varje subdomän för att exfiltrera data.
+
+Vi försöker carva ut filen C:\Shared\Patients\gd_patient_04.rtf men den verkar vara överskriven..
+
+<img width="1355" alt="image" src="https://github.com/user-attachments/assets/061596ce-b9ea-45d0-8261-3122869b9746" />
+
+Då får vi helt enkelt återskapa den.
+
+Vi börjar med att få ut alla querys som har facebook.com i sig då det är de som är intressanta, vi kan använda tshark till det:
+
+<img width="1400" alt="SCR-20250322-pvjp" src="https://github.com/user-attachments/assets/852546a7-fead-4a1e-99ac-fb8526bb800d" />
+
+Vi sparar detta till en fil "dnsdata.txt".
+
+Samma datta verkar skickas flera gånger så vi filtrerat ut unik hexdatan och sätter ihop det till en lång sträng med följande Python-script:
+
+<img width="794" alt="SCR-20250323-brta" src="https://github.com/user-attachments/assets/70167d2c-2eef-4df7-b62f-65365ed6628f" />
+
+<img width="1406" alt="SCR-20250322-pwme" src="https://github.com/user-attachments/assets/e2252994-7f97-4ad8-8cc5-89a28c1dc3f9" />
+
+Nu kan vi då försöka dekryptera hexdatan med den hårdkodade nyckeln som vi hittade "CatchMeIfUCanLOL" i bytes med följande Python-script:
+
+<img width="1505" alt="SCR-20250322-pxgb" src="https://github.com/user-attachments/assets/3f3daf1c-b411-411c-9475-5149f01e492c" />
+
+<img width="1408" alt="SCR-20250322-pxkw" src="https://github.com/user-attachments/assets/faf39b5f-2d31-4184-ba4b-4489b57a7a78" />
+
+Om vi sedan lägger in den hex datan i fil har vi återskapat filen och kan se namnet på den patient vars känsliga data läcktes:
+
+
+
+<img width="717" alt="SCR-20250322-pxvy" src="https://github.com/user-attachments/assets/c400ed47-d084-4a61-8c96-0ccde2ea0fe9" />
+
+`Svar: Håkan Kerberosqvist`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
