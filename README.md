@@ -523,7 +523,7 @@ c1 = g^k (mod p)
 
 <img width="1273" alt="SCR-20250322-qiul" src="https://github.com/user-attachments/assets/46aac0a6-77d8-4a87-ac4b-9a196c509c3b" />
 
-Då kan vi lista ut at generatorn g = 2, p = 107374184. Vi ser också att "primtalet" är alldelser för litet, endast 30-bit, det måste vara mycket större. Då vi har vi generatorn, primtalet och den publika nyckeln. Nu kan vi räkna ut den privata nyckeln genom en matematisk attack! För att knäcka Diskreta logaritmproblemet kan vi använda "BSGS-algoritmen". 
+Då kan vi lista ut at generatorn g = 2, p = 1073741847. Vi ser också att "primtalet" är alldelser för litet, endast 30-bit, det måste vara mycket större. Då vi har vi generatorn, primtalet och den publika nyckeln. Nu kan vi räkna ut den privata nyckeln genom en matematisk attack! För att knäcka Diskreta logaritmproblemet kan vi använda "BSGS-algoritmen". 
 
 <img width="1252" alt="SCR-20250323-tgqm" src="https://github.com/user-attachments/assets/04040a01-0bb0-49d0-898a-02bd8f81c4b2" />
 
