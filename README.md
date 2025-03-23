@@ -59,7 +59,7 @@ Vi vet att angriparen är 192.168.177.141. filtrerar vi på dhcp och 192.168.177
 
 <img width="1389" alt="SCR-20250322-nzhi" src="https://github.com/user-attachments/assets/1704e5c3-a8c9-4e35-aa37-9112e442c17e" />
 
-Klickar vi på request-paketet kan vi se hostname  för 192.168.177.141:
+Klickar vi på request-paketet kan vi se hostname för 192.168.177.141:
 
 <img width="970" alt="SCR-20250322-nzls" src="https://github.com/user-attachments/assets/fa294948-b65d-404b-a80e-345ca57329e9" />
 
@@ -212,59 +212,57 @@ SE WRITEUP PÅ "Angriparens server" OVAN!
 
 Stoppar vi in datan i Cyberchef kan vi misstänka att datan är krypterad:
 
-<img width="1236" alt="SCR-20250323-bbif" src="https://github.com/user-attachments/assets/7b81e732-6629-48a6-ac4e-69058fe514d6" />
+![SCR-20250323-bbif](https://github.com/user-attachments/assets/7b81e732-6629-48a6-ac4e-69058fe514d6)
 
 Vi kan försöka brute-forcea olika typer av vanliga krypteringsmetoder, men vi kan också försöka luska i minnesdumpen och se om vi kan hitta något där.
 
 Vi har tidigare försökt få ut filen "ConsoleHost_history.txt" för att se powershell-kommandon men den filen verkar inte logga så det går inte..
 
-Men om vi istället bara kör strings och använder grep för "facebook.com" får vi upp lite intressanta grejer: 
+Men om vi istället bara kör `strings` och använder `grep` för "facebook.com" får vi upp lite intressanta grejer: 
 
-<img width="1404" alt="SCR-20250323-bgwl" src="https://github.com/user-attachments/assets/1e1f52cd-e7ba-4e5b-96f1-ceaf8a780a0a" />
+![SCR-20250323-bgwl](https://github.com/user-attachments/assets/1e1f52cd-e7ba-4e5b-96f1-ceaf8a780a0a)
 
-Öppnar vi dessutom minnesdumpen i en hex-läsare och söker på texten "facebook.com" så kan vi få fram ett script som kör någon slags XOR-kryptering på filen gd_patient_04.rtf. 
+Öppnar vi dessutom minnesdumpen i en hex-läsare och söker på texten "facebook.com" så kan vi få fram ett script som kör någon slags XOR-kryptering på filen `gd_patient_04.rtf`.
 
-<img width="1500" alt="SCR-20250323-biby" src="https://github.com/user-attachments/assets/17418c93-b222-44d4-8822-e3dc2f74e229" />
+![SCR-20250323-biby](https://github.com/user-attachments/assets/17418c93-b222-44d4-8822-e3dc2f74e229)
 
-<img width="360" alt="SCR-20250323-bieg" src="https://github.com/user-attachments/assets/0e856ea1-739c-4093-b856-606aa42b0332" />
+![SCR-20250323-bieg](https://github.com/user-attachments/assets/0e856ea1-739c-4093-b856-606aa42b0332)
 
 Vi kan lista ut att scriptet gör följande:
 
-1.	Läser en fil (C:\Shared\Patients\gd_patient_04.rtf).
-2.	XOR-krypterar filens data med en nyckel ($k som är CatchMeIfUCanLOL i bytes).
-3.	Omvandlar krypterad data till en hex-sträng.
-4.	Skapar subdomäner baserade på hex-strängen (facebook.com).
-5.	Utför DNS-uppslag på varje subdomän för att exfiltrera data.
+1. Läser en fil (`C:\Shared\Patients\gd_patient_04.rtf`).
+2. XOR-krypterar filens data med en nyckel (`$k` som är `CatchMeIfUCanLOL` i bytes).
+3. Omvandlar krypterad data till en hex-sträng.
+4. Skapar subdomäner baserade på hex-strängen (`facebook.com`).
+5. Utför DNS-uppslag på varje subdomän för att exfiltrera data.
 
-Vi försöker carva ut filen C:\Shared\Patients\gd_patient_04.rtf men den verkar vara överskriven..
+Vi försöker carva ut filen `C:\Shared\Patients\gd_patient_04.rtf` men den verkar vara överskriven..
 
-<img width="1355" alt="image" src="https://github.com/user-attachments/assets/061596ce-b9ea-45d0-8261-3122869b9746" />
+![image](https://github.com/user-attachments/assets/061596ce-b9ea-45d0-8261-3122869b9746)
 
 Då får vi helt enkelt återskapa den.
 
-Vi börjar med att få ut alla querys som har facebook.com i sig då det är de som är intressanta, vi kan använda tshark till det:
+Vi börjar med att få ut alla querys som har "facebook.com" i sig då det är de som är intressanta. Vi kan använda `tshark` till det:
 
-<img width="1400" alt="SCR-20250322-pvjp" src="https://github.com/user-attachments/assets/852546a7-fead-4a1e-99ac-fb8526bb800d" />
+![SCR-20250322-pvjp](https://github.com/user-attachments/assets/852546a7-fead-4a1e-99ac-fb8526bb800d)
 
-Vi sparar detta till en fil "dnsdata.txt".
+Vi sparar detta till en fil `dnsdata.txt`.
 
-Samma datta verkar skickas flera gånger så vi filtrerat ut unik hexdatan och sätter ihop det till en lång sträng med följande Python-script:
+Samma data verkar skickas flera gånger så vi filtrerar ut unik hexdatan och sätter ihop det till en lång sträng med följande Python-script:
 
-<img width="794" alt="SCR-20250323-brta" src="https://github.com/user-attachments/assets/70167d2c-2eef-4df7-b62f-65365ed6628f" />
+![SCR-20250323-brta](https://github.com/user-attachments/assets/70167d2c-2eef-4df7-b62f-65365ed6628f)
 
-<img width="1406" alt="SCR-20250322-pwme" src="https://github.com/user-attachments/assets/e2252994-7f97-4ad8-8cc5-89a28c1dc3f9" />
+![SCR-20250322-pwme](https://github.com/user-attachments/assets/e2252994-7f97-4ad8-8cc5-89a28c1dc3f9)
 
-Nu kan vi då försöka dekryptera hexdatan med den hårdkodade nyckeln som vi hittade "CatchMeIfUCanLOL" i bytes med följande Python-script:
+Nu kan vi då försöka dekryptera hexdatan med den hårdkodade nyckeln som vi hittade (`CatchMeIfUCanLOL`) i bytes med följande Python-script:
 
-<img width="1505" alt="SCR-20250322-pxgb" src="https://github.com/user-attachments/assets/3f3daf1c-b411-411c-9475-5149f01e492c" />
+![SCR-20250322-pxgb](https://github.com/user-attachments/assets/3f3daf1c-b411-411c-9475-5149f01e492c)
 
-<img width="1408" alt="SCR-20250322-pxkw" src="https://github.com/user-attachments/assets/faf39b5f-2d31-4184-ba4b-4489b57a7a78" />
+![SCR-20250322-pxkw](https://github.com/user-attachments/assets/faf39b5f-2d31-4184-ba4b-4489b57a7a78)
 
-Om vi sedan lägger in den hex datan i fil har vi återskapat filen och kan se namnet på den patient vars känsliga data läcktes:
+Om vi sedan lägger in den hex-datan i en fil har vi återskapat filen och kan se namnet på den patient vars känsliga data läcktes:
 
-
-
-<img width="717" alt="SCR-20250322-pxvy" src="https://github.com/user-attachments/assets/c400ed47-d084-4a61-8c96-0ccde2ea0fe9" />
+![SCR-20250322-pxvy](https://github.com/user-attachments/assets/c400ed47-d084-4a61-8c96-0ccde2ea0fe9)
 
 `Svar: Håkan Kerberosqvist`
 
@@ -272,11 +270,11 @@ Om vi sedan lägger in den hex datan i fil har vi återskapat filen och kan se n
 
 *Kategori: Utredning av IT-attacken*,  *Poäng: 500*
 
-Tittar vi i patientjorunalen för Håkan Kerberosqvist ser vi att han Anitidaefobi. En fobi som innebär att ankor stirrar på en.
+Tittar vi i patientjournalerna för Håkan Kerberosqvist ser vi att han lider av Anitidaefobi. En fobi som innebär att ankor stirrar på en.
 
-<img width="717" alt="SCR-20250322-pxvy" src="https://github.com/user-attachments/assets/ffba74e4-3892-43b1-bfbb-402750414f79" />
+![SCR-20250322-pxvy](https://github.com/user-attachments/assets/ffba74e4-3892-43b1-bfbb-402750414f79)
 
-<img width="1230" alt="SCR-20250322-pybi" src="https://github.com/user-attachments/assets/6762b54d-b77b-459c-adc9-77084fde04e7" />
+![SCR-20250322-pybi](https://github.com/user-attachments/assets/6762b54d-b77b-459c-adc9-77084fde04e7)
 
 
 
