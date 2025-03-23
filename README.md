@@ -446,7 +446,7 @@ Vi börjar med att få ut alla querys som har "facebook.com" i sig då det är d
 
 Vi sparar detta till en fil `dnsdata.txt`.
 
-Samma data verkar skickas flera gånger så vi filtrerar ut unik hexdatan och sätter ihop det till en lång sträng med följande Python-script:
+Samma data verkar skickas flera gånger så vi filtrerar ut unik hexdata och sätter ihop det till en lång sträng med följande Python-script:
 
 ![SCR-20250323-brta](https://github.com/user-attachments/assets/70167d2c-2eef-4df7-b62f-65365ed6628f)
 
