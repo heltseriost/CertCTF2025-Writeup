@@ -354,6 +354,9 @@ Troligtvis har angriparen då placerat sin egna skadliga cscapi.dll här genom a
 
 Windows-processer laddar in dll-filer från C:\Windows\System32 därefter i sökvägen som processen startas. Det reglereras av registernycklen: "SafeDllSearchMode".
 
+<img width="1412" alt="SCR-20250323-rlkd" src="https://github.com/user-attachments/assets/9a4987b5-0af0-4e34-b094-56c725abc1eb" />
+
+
 explorer.exe är en av få processer på Windows som körs genom C:\Windows. 
 
 Detta innebär om angriparen placerar in sin "cscapi.dll" och stänger av "SafeDllSearchMode" kommer explorer.exe ladda in C:\Windows\cscapi.dll och därmed angriparens fil när processen startas.
