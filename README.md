@@ -453,6 +453,9 @@ Samma data verkar skickas flera gånger så vi filtrerar ut unik hexdatan och s�
 
 Nu kan vi då försöka dekryptera hexdatan med den hårdkodade nyckeln som vi hittade (`CatchMeIfUCanLOL`) i bytes med följande Python-script:
 
+<img width="1408" alt="SCR-20250322-pxkw" src="https://github.com/user-attachments/assets/56df6b87-8e1a-4d49-8433-6fc932695fc6" />
+
+
 ![SCR-20250322-pxgb](https://github.com/user-attachments/assets/3f3daf1c-b411-411c-9475-5149f01e492c)
 
 ![SCR-20250322-pxkw](https://github.com/user-attachments/assets/faf39b5f-2d31-4184-ba4b-4489b57a7a78)
