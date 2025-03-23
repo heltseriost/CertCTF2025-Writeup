@@ -278,7 +278,7 @@ Fråga: Vad hette den binära filen som angriparen laddade ner? Svara med namn o
 
 Svar för både Nedladdning 1.0 och Nedladdning 2.0 då de hänger lite ihop.
 
-IP-adressen 192.168.177.141 är en mini-dator med troligtvis kali som vi listade ut i "Angriparens hostname". På en Kali-dator eller liknande har man  oftastmassa verktyg men nu när angriparen är inloggad på FTP-servern (192.168.177.155) kan man tänka sig att han vill ladda ner filer till datorn, verktyg och annat för att kunna utföra attacker.
+IP-adressen 192.168.177.141 är en mini-dator med troligtvis kali som vi listade ut i "Angriparens hostname". På en Kali-dator eller liknande har man  oftast massa verktyg men nu när angriparen är inloggad på FTP-servern (192.168.177.155) kan man tänka sig att han vill ladda ner filer till datorn, verktyg och annat för att kunna utföra attacker.
  
 Vi hittar ingen http eller ftp i nätverkstrafiken så antingen har angriparen en egen https-server med ett eget skapat SSL-certifikat eller så laddar angriparen ner från internet från någon domän.
 
