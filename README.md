@@ -236,4 +236,42 @@ Vi kan lista ut att scriptet gör följande:
 4. Skapar subdomäner baserade på hex-strängen (`facebook.com`).
 5. Utför DNS-uppslag på varje subdomän för att exfiltrera data.
 
+Vi försöker carva ut filen `C:\Shared\Patients\gd_patient_04.rtf` men den verkar vara överskriven..
 
+![image](https://github.com/user-attachments/assets/061596ce-b9ea-45d0-8261-3122869b9746)
+
+Då får vi helt enkelt återskapa den.
+
+Vi börjar med att få ut alla querys som har "facebook.com" i sig då det är de som är intressanta. Vi kan använda `tshark` till det:
+
+![SCR-20250322-pvjp](https://github.com/user-attachments/assets/852546a7-fead-4a1e-99ac-fb8526bb800d)
+
+Vi sparar detta till en fil `dnsdata.txt`.
+
+Samma data verkar skickas flera gånger så vi filtrerar ut unik hexdatan och sätter ihop det till en lång sträng med följande Python-script:
+
+![SCR-20250323-brta](https://github.com/user-attachments/assets/70167d2c-2eef-4df7-b62f-65365ed6628f)
+
+![SCR-20250322-pwme](https://github.com/user-attachments/assets/e2252994-7f97-4ad8-8cc5-89a28c1dc3f9)
+
+Nu kan vi då försöka dekryptera hexdatan med den hårdkodade nyckeln som vi hittade (`CatchMeIfUCanLOL`) i bytes med följande Python-script:
+
+![SCR-20250322-pxgb](https://github.com/user-attachments/assets/3f3daf1c-b411-411c-9475-5149f01e492c)
+
+![SCR-20250322-pxkw](https://github.com/user-attachments/assets/faf39b5f-2d31-4184-ba4b-4489b57a7a78)
+
+Om vi sedan lägger in den hex-datan i en fil har vi återskapat filen och kan se namnet på den patient vars känsliga data läcktes:
+
+![SCR-20250322-pxvy](https://github.com/user-attachments/assets/c400ed47-d084-4a61-8c96-0ccde2ea0fe9)
+
+`Svar: Håkan Kerberosqvist`
+
+### ***Fobi***
+
+*Kategori: Utredning av IT-attacken*,  *Poäng: 500*
+
+Tittar vi i patientjournalerna för Håkan Kerberosqvist ser vi att han lider av Anitidaefobi. En fobi som innebär att ankor stirrar på en.
+
+![SCR-20250322-pxvy](https://github.com/user-attachments/assets/ffba74e4-3892-43b1-bfbb-402750414f79)
+
+![SCR-20250322-pybi](https://github.com/user-attachments/assets/6762b54d-b77b-459c-adc9-77084fde04e7)
