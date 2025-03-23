@@ -63,6 +63,8 @@ filtrerar vi på adressen kan vi dessutom bekräfta detta ännu mer med namnet "
 
 Fråga: Vad var angriparens hostname?
 
+*Kategori: Adresser*,  *Poäng: 100*
+
 Vi vet att angriparen är 192.168.177.141. filtrerar vi på dhcp och 192.168.177.141 får vi följande:
 
 <img width="1389" alt="SCR-20250322-nzhi" src="https://github.com/user-attachments/assets/1704e5c3-a8c9-4e35-aa37-9112e442c17e" />
