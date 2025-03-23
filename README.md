@@ -344,7 +344,8 @@ Vi vet nu att den binära filen är "cscapi.dll", det är en vanlig fil legitim 
 
 Använder vi volatility3 med plugin: windows.dlllist och använder `grep` för cscapi.dll kan vi se vilka dll-filer med det namnet som har laddats in och av vilken process. Vi ser här att några processer laddar in C:\Windows\System32\cscapi.dll runt 09:19 (svensk tid). Men explorer.exe laddar in C:\Windows\cscapi.dll vid 09:43:01 (svensk tid). Process-id för exlorer.exe är: 4112. 
 
-<img width="1399" alt="SCR-20250322-psus" src="https://github.com/user-attachments/assets/62010e5f-8956-4fb5-a268-f15258d65f1e" />
+<img width="1399" alt="SCR-20250322-psus" src="https://github.com/user-attachments/assets/34ad439c-fdf3-41ff-b3ed-bcda2fc96c62" />
+
 
 Vi vet ju att angriparen sedan tidigare har exluderat Windows Defender Antivirus att scanna C:\Windows.
 
@@ -416,7 +417,7 @@ Vi har tidigare försökt få ut filen "ConsoleHost_history.txt" för att se pow
 
 Men om vi istället bara kör `strings` och använder `grep` för "facebook.com" får vi upp lite intressanta grejer: 
 
-![SCR-20250323-bgwl](https://github.com/user-attachments/assets/1e1f52cd-e7ba-4e5b-96f1-ceaf8a780a0a)
+<img width="1404" alt="SCR-20250323-bgwl" src="https://github.com/user-attachments/assets/13cfacaa-2fc4-4dd3-962b-196740fb106f" />
 
 Öppnar vi dessutom minnesdumpen i en hex-läsare och söker på texten "facebook.com" så kan vi få fram ett script som kör någon slags XOR-kryptering på filen `gd_patient_04.rtf`.
 
@@ -434,7 +435,7 @@ Vi kan lista ut att scriptet gör följande:
 
 Vi försöker carva ut filen `C:\Shared\Patients\gd_patient_04.rtf` men den verkar vara överskriven..
 
-![image](https://github.com/user-attachments/assets/061596ce-b9ea-45d0-8261-3122869b9746)
+<img width="1406" alt="SCR-20250322-ppmo" src="https://github.com/user-attachments/assets/cd95efcb-c356-4a2c-b1cd-691a827cf0b9" />
 
 Då får vi helt enkelt återskapa den.
 
@@ -448,7 +449,7 @@ Samma data verkar skickas flera gånger så vi filtrerar ut unik hexdatan och s�
 
 ![SCR-20250323-brta](https://github.com/user-attachments/assets/70167d2c-2eef-4df7-b62f-65365ed6628f)
 
-![SCR-20250322-pwme](https://github.com/user-attachments/assets/e2252994-7f97-4ad8-8cc5-89a28c1dc3f9)
+<img width="1406" alt="SCR-20250322-pwme" src="https://github.com/user-attachments/assets/a2ad6bf6-588d-479f-9526-bf303b80e331" />
 
 Nu kan vi då försöka dekryptera hexdatan med den hårdkodade nyckeln som vi hittade (`CatchMeIfUCanLOL`) i bytes med följande Python-script:
 
