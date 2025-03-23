@@ -393,7 +393,7 @@ Vi kan carva ut den binära filen "cscapi.dll" med volatility3 och analysera den
 
 Jag körde här plugins: "windows.filescan" (för att hitta den virtuella adressen) och "windows.dumpfiles" (för att dumpa ut filen). 
 
-Sen analyserar jag den med radare2 och ser att den ger ett notifikations-fönster med en textsträng som är tänkt att "simulera" en bakdörr:
+Sen analyserar jag den med radare2 och ser att den ger ett notifikations-fönster med en textsträng som är tänkt att simulera en bakdörr:
 
 <img width="1398" alt="SCR-20250322-psey" src="https://github.com/user-attachments/assets/e39d7f54-0536-4558-873a-72e3acf9deee" />
 
