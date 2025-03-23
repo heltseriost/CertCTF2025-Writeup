@@ -17,7 +17,7 @@ Tittar vi i trafiken ser vi att det sker massa trafik udda trafik från "192.168
 
 Vi kan då räkna ut ganska snabbt att ip-adressen som angriparen använde sig av initialt var "192.168.177.141"
 
-`Svar: 192.168.177.141`.
+`Svar: 192.168.177.141`
 
 ---
 
@@ -31,7 +31,7 @@ Dessutom använder ftp port 21. Filtrerar vi på lyckade anslutningar på port 2
 
 <img width="1384" alt="SCR-20250322-ntzk" src="https://github.com/user-attachments/assets/1089ea19-ebfc-4181-a086-b7a28f5f86da" />
 
-`Svar: 192.168.177.155`.
+`Svar: 192.168.177.155`
 
 ---
 
@@ -47,7 +47,7 @@ filtrerar vi på adressen kan vi dessutom bekräfta detta ännu mer med namnet "
 
 <img width="1384" alt="SCR-20250322-nwjf" src="https://github.com/user-attachments/assets/f4e68672-52e0-49f7-999b-43eebc9a3016" />
 
-`Svar: 192.168.177.129`.
+`Svar: 192.168.177.129`
 
 ---
 
@@ -63,7 +63,7 @@ Klickar vi på request-paketet kan vi se hostname  för 192.168.177.141:
 
 <img width="970" alt="SCR-20250322-nzls" src="https://github.com/user-attachments/assets/fa294948-b65d-404b-a80e-345ca57329e9" />
 
-`Svar: kali`.
+`Svar: kali`
 
 ---
 
@@ -75,7 +75,7 @@ Har man wireshark inställt på svensk tid (dvs. UTC) behöver man inte fundera 
 
 <img width="1326" alt="SCR-20250322-obiy" src="https://github.com/user-attachments/assets/1aef3bc4-071f-4448-9401-5449a53a039f" />
 
-`Svar: 09:42:01`.
+`Svar: 09:42:01`
 
 ---
 
@@ -91,7 +91,7 @@ Sidan för MITRE ATT&CK-tekniken:
 
 <img width="1486" alt="SCR-20250322-ofco" src="https://github.com/user-attachments/assets/31ea1e2e-7a05-441d-bb46-2f2f3f23002a" />
 
-`Svar: T1018`.
+`Svar: T1018`
 
 ---
 
@@ -107,7 +107,7 @@ Sidan för MITRE ATT&CK-tekniken:
 
 <img width="1480" alt="SCR-20250322-ojfd" src="https://github.com/user-attachments/assets/eaf5dfdf-4dbb-4371-a0c9-2db7b700938f" />
 
-`Svar: T1046`.
+`Svar: T1046`
 
 ---
 
@@ -123,7 +123,7 @@ Vi ser att de ip-addresser som hade öppna portar va 192.168.177.129, 192.168.17
 
 <img width="1480" alt="SCR-20250322-ojfd" src="https://github.com/user-attachments/assets/eaf5dfdf-4dbb-4371-a0c9-2db7b700938f" />
 
-`Svar: 21`.
+`Svar: 21`
 
 ---
 
@@ -143,7 +143,7 @@ Sidan för MITRE ATT&CK-subtekniken:
 
 ![SCR-20250322-oqny](https://github.com/user-attachments/assets/3ba6fad6-537e-4bef-9ca4-d50edb59218f)
 
-`Svar: T1558.004`.
+`Svar: T1558.004`
 
 ---
 
@@ -155,7 +155,7 @@ Man kan se att autentiseringsuppgifterna (ticket) skickas krypterat i en "AS-REP
 
 <img width="1377" alt="SCR-20250322-orkn" src="https://github.com/user-attachments/assets/ca6d0358-5c2a-4fbd-a7dc-85ac6e7a364b" />
 
-`Svar: 2387`.
+`Svar: 2387`
 
 ---
 
@@ -171,7 +171,7 @@ Vi kan testa stoppa hashen i Crackstation för att se om det är ett tidigare l�
 
 <img width="1420" alt="SCR-20250322-oumg" src="https://github.com/user-attachments/assets/df88c20c-0e8f-4c58-8e1e-b19ea68b72e1" />
 
-`Svar: DentalSurgery528`.
+`Svar: DentalSurgery528`
 
 
 ---
@@ -188,7 +188,7 @@ Vi kan testa stoppa hashen i Crackstation för att se om det är ett tidigare l�
 
 <img width="1420" alt="SCR-20250322-oumg" src="https://github.com/user-attachments/assets/df88c20c-0e8f-4c58-8e1e-b19ea68b72e1" />
 
-`Svar: DentalSurgery528`.
+`Svar: DentalSurgery528`
 
 ---
 
@@ -200,7 +200,7 @@ Vi kan se massa dns-paket till ip-addressen "10.245.122.37" i nätverkstrafiken 
 
 <img width="1375" alt="SCR-20250322-ptpl" src="https://github.com/user-attachments/assets/e1688689-ffcd-4bd5-8792-53470c76bcf1" />
 
-`Svar: 10.245.122.37`.
+`Svar: 10.245.122.37`
 
 ---
 
@@ -266,7 +266,7 @@ Om vi sedan lägger in den hex datan i fil har vi återskapat filen och kan se n
 
 <img width="717" alt="SCR-20250322-pxvy" src="https://github.com/user-attachments/assets/c400ed47-d084-4a61-8c96-0ccde2ea0fe9" />
 
-`Svar: Håkan Kerberosqvist`.
+`Svar: Håkan Kerberosqvist`
 
 ### ***Fobi***
 
@@ -277,12 +277,6 @@ Tittar vi i patientjorunalen för Håkan Kerberosqvist ser vi att han Anitidaefo
 <img width="717" alt="SCR-20250322-pxvy" src="https://github.com/user-attachments/assets/ffba74e4-3892-43b1-bfbb-402750414f79" />
 
 <img width="1230" alt="SCR-20250322-pybi" src="https://github.com/user-attachments/assets/6762b54d-b77b-459c-adc9-77084fde04e7" />
-
----
-
-
-
-
 
 
 
