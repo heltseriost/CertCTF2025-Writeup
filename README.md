@@ -307,7 +307,8 @@ Om vi däremot kör `strings` på minnesdumpen eller öppnar den i en hex-läsar
 
 Det laddas ner en fil från en privat Github-repo med en api-token. Filen verkar heta cscapi.dll och är 93959 bytes. Vilket verkar stämma ganska väl överens med datamängden som vi såg tidigare i tcp-strömmen "1998". Kollar vi upp Githubsidan får vi detta:
 
-<img width="1318" alt="SCR-20250322-prrh" src="https://github.com/user-attachments/assets/b856af3a-df98-460e-9e2a-f5c182067122" />
+<img width="1246" alt="SCR-20250322-pqkv" src="https://github.com/user-attachments/assets/baa8a033-28e0-4bc6-b1fa-5f2456dacfdc" />
+
 
 `Svar Nedladdning 1.0: 100`
 `Svar Nedladdning 2.0: cscapi.dll`
