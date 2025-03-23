@@ -1,7 +1,8 @@
 # CertCTF2025-Writeup
+
 Samtliga lösningar för CertCTF2025
 
-Följer tidslinjen i attacken.
+Följer tidslinjen i attacken som pågick i cirka 20 minuter.
 
 ### ***Angriparens IPv4-adress***
 
@@ -10,6 +11,8 @@ Fråga: Vilken IPv4-adress använde angriparen sig av initialt i attacken?
 *Kategori: Adresser*,  *Poäng: 100*
 
 Vi vet från "scenario.txt" att angriparen har kopplat in en mini-dator på nätverket där skrivaren egentligen sitter, möjligtvis på samma subnät.
+
+Ett smart sätt att approacha en uppgift som denna är att försöka skapa sig en övergripande bild, tidslinje, jämföra olika filer med varandra för att försöka följa angriparens steg. Attacken pågår i knappt 20 minuter.
 
 Genom att titta på "IPv4 statistics" ser vi att ip-adresser på subnätet "192.168.177.0/24" står för den absoluta majoriteten av trafiken:
 
@@ -554,3 +557,7 @@ Med den privata nyckeln som vi hittat: 177370085 kan vi sedan knäcka kryptering
 `Svar: Pelle_Svanslos_Har_Svans`
 
 ---
+
+Slutord:
+
+Attacken pågår i knappt 20 minuter. Ett smart sätt att approacha en uppgift som denna kan vara att försöka skapa sig en övergripande bild, skapa en tidslinje, och jämföra olika filer med varandra för att försöka följa angriparens steg. På så vis kan man lista ut vad angriparen gör i varje steg och hur angriparen bäddar för nästkommande steg! Som till exempel port scanning, därefter kerberoasting. Eller som att till exempel exkludera scanning av sökvägar i Defender för att senare placera filer där. 
