@@ -2,7 +2,7 @@
 
 Samtliga lösningar för CertCTF2025
 
-Följer tidslinjen i attacken som pågick i cirka 20 minuter.
+Följer tidslinjen i attacken.
 
 ### ***Angriparens IPv4-adress***
 
