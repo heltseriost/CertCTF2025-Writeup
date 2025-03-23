@@ -283,7 +283,7 @@ Vi hittar ingen http eller ftp i nätverkstrafiken så antingen har angriparen e
 
 filtrerar vi på dns för att se domäner i trafiken får vi upp lite olika bland annat microsoft-update, kanske inte jätteintressant. MEN en domän som är intressant är Github (api.github.com och raw.githubusercontent.com). Angripare använder ibland Github för "Malware hosting". 
 
-<img width="1360" alt="SCR-20250322-piuq" src="https://github.com/user-attachments/assets/97f92c24-2048-4193-812a-717e93c38af4" />
+<img width="1377" alt="SCR-20250323-saji" src="https://github.com/user-attachments/assets/f978b853-9608-41fc-bb05-05602dc020f7" />
 
 Vi får fram två tcp-strömmar med github genom filtret "frame contains github"
 
