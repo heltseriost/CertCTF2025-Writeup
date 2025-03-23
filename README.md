@@ -511,11 +511,11 @@ Vi har fått en fil med en publik nyckel: 506395958. Tittar vi på den krypterad
 
 <img width="749" alt="SCR-20250323-lacg" src="https://github.com/user-attachments/assets/fc7f30df-8928-4eb7-8df0-09307507df92" />
 
-ElGamal är en asymmetrisk krypteringsalgoritm som använder en publik och en privat nyckel. ElGamal genererar nycklar genom det diskreta logaritmproblemet. En säker krypteringsalgoritm som gör att angriparen inte kan beräkna den privata nyckeln OM allt är gjort på rätt sätt. Ett problem är om primtalet är för litet.
+ElGamal är en asymmetrisk krypteringsalgoritm som använder en publik och en privat nyckel. ElGamal genererar nycklar genom det diskreta logaritmproblemet. En säker krypteringsalgoritm som gör att angriparen inte kan beräkna den privata nyckeln OM allt är gjort på rätt sätt. 
 
-Ett problem är om primtalet är för litet, I detta fallet kan vi Om vi öppnar upp enc.exe i Ghidra så hittar vi funktionen "eg_enc". 
+Om vi öppnar upp enc.exe i Ghidra så hittar vi funktionen "eg_enc". 
 
-"mod_exp" i C likt "pow" i Python tar 3 argument (Bas, exponent, Modulo)
+"mod_exp" i C likt "pow" i Python tar 3 argument (Bas, Exponent, Modulo)
 
 mod_exp här följer ElGamals:
 
@@ -523,7 +523,7 @@ c1 = g^k (mod p)
 
 <img width="1273" alt="SCR-20250322-qiul" src="https://github.com/user-attachments/assets/46aac0a6-77d8-4a87-ac4b-9a196c509c3b" />
 
-Då kan vi lista ut at generatorn g = 2, p = 107374184. Vi ser också att "primtalet" är alldelser för litet, endast 30-bit, det måste vara mycket större. Då vi har vi generatorn, primtalet och den publika nyckeln. Nu kan vi räkna ut den privata nyckeln genom en matematisk attack. För att knäcka Diskreta logaritmproblemet kan vi använda "BSGS-algoritmen". 
+Då kan vi lista ut at generatorn g = 2, p = 107374184. Vi ser också att "primtalet" är alldelser för litet, endast 30-bit, det måste vara mycket större. Då vi har vi generatorn, primtalet och den publika nyckeln. Nu kan vi räkna ut den privata nyckeln genom en matematisk attack! För att knäcka Diskreta logaritmproblemet kan vi använda "BSGS-algoritmen". 
 
 <img width="1252" alt="SCR-20250323-tgqm" src="https://github.com/user-attachments/assets/04040a01-0bb0-49d0-898a-02bd8f81c4b2" />
 
@@ -538,7 +538,6 @@ Detta uppskattar jag tar cirka 3-10 minuter beroende på datorns prestanda:
 `Svar: 177370085`
 
 ---
-
 
 ### ***Ransomware 2.0 - Textsträngen***
 
