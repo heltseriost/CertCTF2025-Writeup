@@ -359,7 +359,11 @@ Windows-processer laddar in dll-filer från C:\Windows\System32 därefter i sök
 
 explorer.exe är en av få processer på Windows som körs genom C:\Windows. 
 
-Detta innebär om angriparen placerar in sin "cscapi.dll" och stänger av "SafeDllSearchMode" kommer explorer.exe ladda in C:\Windows\cscapi.dll och därmed angriparens fil när processen startas.
+Detta innebär om angriparen placerar in sin "cscapi.dll" och stänger av värdet av "SafeDllSearchMode" till 0 kommer explorer.exe ladda in C:\Windows\cscapi.dll och därmed angriparens fil när processen startas.
+
+Ändringen av registernyckeln syns också om man söker efter "SafeDllSearchMode" i minnesdumpten och går att i princip bekräfta på så vis:
+
+<img width="1443" alt="SCR-20250323-rnvu" src="https://github.com/user-attachments/assets/340a7bad-5253-4836-9104-f1aac3964ac1" />
 
 Denna teknik kallas "DLL Search Order Hijacking". ID-nummer för MITRE ATT&CK-subtekniken: T1574.001
 
