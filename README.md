@@ -343,7 +343,7 @@ Vi vet nu att den binära filen är "cscapi.dll", det är en vanlig legitim dll 
 
 <img width="1318" alt="SCR-20250322-prrh" src="https://github.com/user-attachments/assets/502b5554-ff09-4fe0-9dab-aff4597d56ba" />
 
-Använder vi volatility3 med plugin: windows.dlllist och använder `grep` för cscapi.dll kan vi se vilka dll-filer med det namnet som har laddats in och av vilken process. Vi ser här att några processer laddar in C:\Windows\System32\cscapi.dll runt 09:19 (svensk tid). Men explorer.exe laddar in C:\Windows\cscapi.dll vid 09:43:01 (svensk tid). Process-id för exlorer.exe är: 4112. 
+Använder vi volatility3 med plugin: windows.dlllist och använder `grep` för cscapi.dll kan vi se vilka dll-filer med det namnet som har laddats in och av vilken process. Vi ser här att några processer laddar in den legitima C:\Windows\System32\cscapi.dll runt 09:19 (svensk tid). Men explorer.exe laddar in C:\Windows\cscapi.dll vid 09:43:01 (svensk tid). Process-id för exlorer.exe är: 4112. 
 
 <img width="1399" alt="SCR-20250322-psus" src="https://github.com/user-attachments/assets/34ad439c-fdf3-41ff-b3ed-bcda2fc96c62" />
 
